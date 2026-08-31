@@ -17,16 +17,22 @@ public history; keeping that claim true is this repository's only job.
 
 ## Editing
 
+**`privacy-policy.md` and `support.md` in this repository are generated. Do not
+edit them here.**
+
 The app's source repository holds the canonical copies under `docs/`, because
 the policy's claims are written to be checkable against the app's privacy
 manifest and entitlements, and the support page's answers describe shipping
-behaviour. Changes are made there first and mirrored here; the two must not
-drift, since one of them is what App Review and users actually read.
+behaviour. Edits are made there. On merge, a workflow in that repository renders
+these two files — the same bodies with the front matter above added — and pushes
+them here. A separate check runs daily and fails if what is published here has
+drifted from what the app repository says it should be, so a hand-edit here will
+be reported rather than quietly kept.
 
 The privacy policy additionally ships *inside* the app, so a policy change
 touches three copies: `docs/privacy-policy.md` and `PrivacyPolicyView.swift` in
 the app repository, and `privacy-policy.md` here. All three carry the same
-"Last updated" date.
+"Last updated" date, and CI fails a change that lets the first two disagree.
 
 ## Questions
 

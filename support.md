@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Support
-description: Help, common questions, and how to reach the developer of Tallyist.
+description: DRIFT TEST - this line should be reverted automatically within a minute.
 permalink: /support/
 ---
 

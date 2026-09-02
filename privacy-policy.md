@@ -7,7 +7,7 @@ permalink: /privacy/
 
 # Tallyist Privacy Policy
 
-**Last updated: August 31, 2026**
+**Last updated: September 2, 2026**
 
 Tallyist does not collect your data. Nothing you log leaves your control.
 
@@ -19,7 +19,8 @@ claims can be checked against the app's privacy manifest and entitlements.
 ## What Tallyist stores
 
 - The drinks you log: type, size, strength, and when.
-- Days you record as alcohol-free.
+- Days recorded as alcohol-free — by you, or by another app that recorded zero
+  drinks in Apple Health.
 - Your settings, such as which region's standard-drink definition your totals use.
 
 All of it is stored on your device, in the app's own database. There are no
@@ -35,7 +36,8 @@ accounts and no sign-up.
 - **Apple Health.** With your permission, drinks you log are saved to Health as
   "alcoholic beverages", and Tallyist reads that same category back — including
   drinks that other apps recorded there, which then appear in your Tallyist log,
-  clearly labeled. You can grant, refuse, or revoke this at any time in the
+  clearly labeled, and days they recorded as zero drinks, which appear as
+  no-alcohol days. You can grant, refuse, or revoke this at any time in the
   Health app under Sharing. Tallyist reads no other Health data.
 - **The widget.** The home-screen widget shares the app's on-device storage.
   Nothing about that leaves the device.

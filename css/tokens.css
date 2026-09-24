@@ -1,0 +1,176 @@
+/*
+  Tallyist design tokens for the web.
+
+  Taken from the app on 2026-09-23 (semmes/DrinkTracker at c7843dd):
+  docs/design-system.md sections 2 to 4, Shared/IntensityPalette.swift, and the
+  AccentColor / AccentFill colour sets in Shared/Assets.xcassets. The app's
+  greys are iOS system colours; they are written out here as the values UIKit
+  documents, because a web page has no system colours to borrow.
+
+  Light values sit on :root, dark values under prefers-color-scheme. The site
+  has no theme switch, so there is nothing else to key on.
+
+  Every pair a page relies on is declared as an @contrast comment and measured
+  in both schemes by scripts/contrast.py, which the deploy workflow runs over
+  every stylesheet in css/. Run it after any colour change:
+  python3 scripts/contrast.py css/tokens.css (the app's invariant 10: measured,
+  never eyeballed).
+*/
+
+:root {
+  color-scheme: light dark;
+
+  /* The Tallyist Blue ramp. One hue, fixed across schemes (ADR-0007). */
+  --ramp-100: #cde2fb;
+  --ramp-150: #b7d3f6;
+  --ramp-200: #9ec5f4;
+  --ramp-250: #86b6ef;
+  --ramp-300: #6da7ec;
+  --ramp-350: #5598e7;
+  --ramp-400: #3987e5;
+  --ramp-450: #2a78d6;
+  --ramp-500: #256abf;
+  --ramp-550: #1c5cab;
+  --ramp-600: #184f95;
+  --ramp-650: #104281;
+  --ramp-700: #0d366b;
+  --ramp-800: #05172e;
+
+  /* Brand roles. */
+  --accent: var(--ramp-500);       /* links, glyphs, selected state */
+  --accent-fill: var(--ramp-500);  /* filled controls; stays 500 in dark (white on 400 is 3.64:1) */
+  --on-accent: #ffffff;
+  --brand-deep: var(--ramp-650);   /* the icon field */
+  --focus-ring: var(--accent);
+
+  /* Grounds: systemBackground, systemGroupedBackground, and a card on it. */
+  --ground: #ffffff;
+  --ground-grouped: #f2f2f7;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+
+  /* Inks. --ink is iOS label. --ink-2 is the web's secondary text: iOS's own
+     secondaryLabel measures 3.44:1 on white and 3.30:1 on the grouped ground,
+     under the 4.5:1 the plan requires, so it is kept only as a reference
+     (--ink-2-ios) and never set as text. 0.8 of the same colour passes on
+     every light ground with margin. */
+  --ink: #000000;
+  --ink-2: rgba(60, 60, 67, 0.8);
+  --ink-2-ios: rgba(60, 60, 67, 0.6);
+  --ink-3-ios: rgba(60, 60, 67, 0.3);
+  --separator: rgba(60, 60, 67, 0.29);
+
+  /* Data bands: the calendar's four steps and what is drawn on them
+     (IntensityPalette.fill / .ink). A recorded no-alcohol day is off the ramp:
+     a 10% neutral fill with an outline, never a ramp step. */
+  --band-low: var(--ramp-250);
+  --band-low-ink: #000000;
+  --band-medium: var(--ramp-450);
+  --band-medium-ink: #ffffff;
+  --band-high: var(--ramp-700);
+  --band-high-ink: #ffffff;
+  --band-very-high: var(--ramp-800);
+  --band-very-high-ink: #ffffff;
+  --band-none: rgba(0, 0, 0, 0.10);
+  --band-none-ink: #000000;
+
+  /* Type. System fonts only; no web font is loaded. Numerals the reader
+     made are rounded in the app (design-system section 3); ui-rounded gives SF
+     Rounded in Safari and falls back to the system face elsewhere. */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-rounded: ui-rounded, "SF Pro Rounded", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* iOS text styles at the default size, in rem so a reader's own font size
+     setting still scales them. Line heights are iOS's own. */
+  --text-large-title: 2.125rem;  /* 34 / 41, bold */
+  --text-title-1: 1.75rem;       /* 28 / 34 */
+  --text-title-2: 1.375rem;      /* 22 / 28 */
+  --text-title-3: 1.25rem;       /* 20 / 25 */
+  --text-body: 1.0625rem;        /* 17 / 22; headline is the same size, semibold */
+  --text-callout: 1rem;          /* 16 / 21 */
+  --text-subheadline: 0.9375rem; /* 15 / 20 */
+  --text-footnote: 0.8125rem;    /* 13 / 18 */
+  --text-caption: 0.75rem;       /* 12 / 16 */
+  --text-caption-2: 0.6875rem;   /* 11 / 13 */
+
+  /* Space, shape (design-system section 4). iOS corners are continuous; plain
+     border-radius at the same value is the closest the web draws. */
+  --space-tight: 8px;
+  --space-regular: 12px;
+  --space-section: 24px;
+  --space-block: 32px;
+  --screen-margin: 20px;
+  --card-padding: 16px;
+  --radius-control: 14px;
+  --radius-pill: 22px;
+  --radius-card: 26px;
+  --radius-sheet: 34px;
+  --touch-min: 44px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: var(--ramp-400);
+    --brand-deep: var(--ramp-650);
+
+    --ground: #000000;
+    --ground-grouped: #000000;
+    --surface: #1c1c1e;
+    --surface-raised: #2c2c2e;
+
+    --ink: #ffffff;
+    --ink-2: rgba(235, 235, 245, 0.6);  /* iOS secondaryLabel passes on every dark ground */
+    --ink-2-ios: rgba(235, 235, 245, 0.6);
+    --ink-3-ios: rgba(235, 235, 245, 0.3);
+    --separator: rgba(84, 84, 88, 0.6);
+
+    --band-low: var(--ramp-600);
+    --band-low-ink: #ffffff;
+    --band-medium: var(--ramp-400);
+    --band-medium-ink: #000000;
+    --band-high: var(--ramp-200);
+    --band-high-ink: #000000;
+    --band-very-high: var(--ramp-100);
+    --band-very-high-ink: #000000;
+    --band-none: rgba(255, 255, 255, 0.16);
+    --band-none-ink: #ffffff;
+  }
+}
+
+/* Every pair below must pass; contrast.py exits 1 if one does not, so the
+   site's deploy can run the same check over its own stylesheet. Pairs that
+   were measured and are not usable as they stand are in contrast.md. */
+
+/* Text on every ground a page can put it on. */
+/* @contrast --ink on --ground: text */
+/* @contrast --ink on --ground-grouped: text */
+/* @contrast --ink on --surface-raised: text */
+/* @contrast --ink-2 on --ground: text */
+/* @contrast --ink-2 on --ground-grouped: text */
+/* @contrast --ink-2 on --surface over --ground-grouped: text */
+/* @contrast --ink-2 on --surface-raised: text */
+/* @contrast --accent on --ground: text */
+/* @contrast --accent on --ground-grouped: text */
+/* @contrast --accent on --surface over --ground-grouped: text */
+/* @contrast --on-accent on --accent-fill: text */
+
+/* Controls and graphics (WCAG 1.4.11): the focus ring and the glyph ink. */
+/* @contrast --focus-ring on --ground: ui */
+/* @contrast --focus-ring on --surface over --ground-grouped: ui */
+/* @contrast --ink on --surface over --ground-grouped: ui */
+
+/* Band fills against the page, from the medium band up, and ink on each fill.
+   Ink on the medium band is large text only, as in the app: white on #2a78d6
+   is 4.42:1, which a calendar cell's day numeral clears only because it is
+   large (ADR-0034). */
+/* @contrast --band-medium on --ground: ui */
+/* @contrast --band-high on --ground: ui */
+/* @contrast --band-very-high on --ground: ui */
+/* @contrast --band-low-ink on --band-low: text */
+/* @contrast --band-medium-ink on --band-medium: large */
+/* @contrast --band-high-ink on --band-high: text */
+/* @contrast --band-very-high-ink on --band-very-high: text */
+/* @contrast --band-none-ink on --band-none: text */

@@ -1,7 +1,12 @@
 title: Tallyist
 description: Privacy policy and support for Tallyist, the iOS drink tracker.
 url: https://semmes.github.io
+# The site is served under /Tallyist until tallyist.co is attached. On the day
+# it is, url becomes https://tallyist.co and baseurl becomes empty, in the same
+# commit that sets the custom domain. scripts/check-links.py reads baseurl from
+# here, so the checks follow.
 baseurl: /Tallyist
 plugins: []
 exclude:
   - README.md
+  - scripts

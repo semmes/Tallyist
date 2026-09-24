@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The canonical addresses only: tallyist.co, never github.io and never the
+     three forwarding domains. Add a page here when it ships. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tallyist.co/</loc></url>
+  <url><loc>https://tallyist.co/privacy/</loc></url>
+  <url><loc>https://tallyist.co/support/</loc></url>
+</urlset>

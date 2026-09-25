@@ -420,6 +420,7 @@ img { max-width: 100%; }
 .container { max-width: 1120px; margin: 0 auto; }
 .section--hero { padding-top: var(--page-top); }
 .section--compact { padding: clamp(56px, 7vw, 96px) var(--gutter); }
+.section--compact .body { max-width: 640px; }
 .section--statement { padding: clamp(88px, 12vw, 160px) var(--gutter); }
 
 .display {
@@ -493,6 +494,7 @@ img { max-width: 100%; }
   min-width: 0;
   width: 100%;
 }
+.row__media--hero { flex-basis: 320px; }
 .row__media--watch { flex-basis: 260px; }
 
 /* The app inside Apple's own device images, flattened into one picture
@@ -517,13 +519,13 @@ img { max-width: 100%; }
 .pair > :nth-child(2) { margin-top: clamp(24px, 6vw, 64px); }
 
 figure { margin: 0; }
+/* Under the device, aligned with its left edge, as the design sets it. */
 .caption {
-  max-width: 320px;
+  max-width: 300px;
   margin: 16px auto 0;
   font-size: 15px;
   line-height: 1.45;
   color: var(--label-2);
-  text-align: center;
   text-wrap: pretty;
 }
 

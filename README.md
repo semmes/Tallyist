@@ -2,16 +2,15 @@
 
 This repository is Tallyist's public website: the product pages, and the two
 documents the App Store requires, its **privacy policy** and its **support
-page**. It is served at **<https://semmes.github.io/Tallyist/>**, and will be at
-**<https://tallyist.co/>** once that domain is attached. From then on GitHub
-answers every `semmes.github.io/Tallyist/...` address with a permanent redirect
-to the same path on tallyist.co, so the links already inside shipped copies of
-the app keep working.
+page**. It is served at **<https://tallyist.co/>**. GitHub answers every
+`semmes.github.io/Tallyist/...` address with a permanent redirect to the same
+path on tallyist.co, so the links already inside shipped copies of the app keep
+working.
 
 It is a separate repository so that these pages stay publicly readable, with
-their full history, whatever happens to the app's source repository. The privacy
-policy says every change to it is visible in a public history, and this
-repository is where that stays true.
+their full history, whatever happens to the app's source repository. The copy of
+the privacy policy inside the app says every change to it is visible in this
+repository's history, and this repository is where that stays true.
 
 | Page | Source | Published at |
 | --- | --- | --- |
@@ -26,11 +25,12 @@ repository is where that stays true.
 The app's source repository, `semmes/DrinkTracker`, holds the canonical copies
 under `docs/`, because the policy's claims are written to be checkable against the
 app's privacy manifest and entitlements, and the support page's answers describe
-shipping behaviour. On merge there, a workflow renders these two files (the same
-bodies with Jekyll front matter added) and pushes them here. A daily check fails
-if what is published here has drifted from what the app repository says it should
-be, so a hand-edit here is reported rather than quietly kept (ADR-0024 in that
-repository).
+shipping behaviour. On merge there, a workflow renders these two files and pushes
+them here: the same bodies with Jekyll front matter added, and with the policy's
+two web-only lines (an email address for questions, no pointer to a repository)
+in place of the canonical ones. A daily check fails if what is published here has
+drifted from what the app repository says it should be, so a hand-edit here is
+reported rather than quietly kept (ADR-0024 in that repository).
 
 The privacy policy also ships inside the app, so a policy change touches three
 copies: `docs/privacy-policy.md` and `PrivacyPolicyView.swift` in the app
@@ -43,15 +43,23 @@ Plain HTML and CSS, written by hand, with no framework and no build step to run
 locally. The rules for every page: a `<meta name="apple-itunes-app">` line, no
 `<script>`, nothing loaded from any other origin, and the system font.
 
-Jekyll stays on, which is why there is no `.nojekyll` file: the two generated
-documents are Markdown, rendered through `_layouts/default.html`. A page without
-front matter is copied through untouched, so the HTML pages never meet a
-template unless they ask for one.
+Jekyll stays on, which is why there is no `.nojekyll` file. The two generated
+documents are Markdown, and every page, theirs and the site's own, renders
+through the one layout, `_layouts/default.html`, so the head, header and footer
+exist once. A site page is hand-written HTML with a few lines of front matter
+naming that layout; `bare: true` keeps the layout from wrapping it in the
+document column.
 
-- `css/tokens.css` is the app's palette, type, spacing and radii, from
-  `docs/design-system.md` and `IntensityPalette` in the app repository. Colour
-  pairs are declared in the stylesheet as `/* @contrast --ink on --ground: text */`
-  and measured in both schemes on every build.
+**Platform state.** `platform_state` in `_config.yml` is the site's one switch:
+`1` while only the iPhone app is live, `2` once the watch app is, `3` once
+Android is. The layout writes it to `<html data-state>` for the stylesheet, and
+`support.md` reads it through Liquid, so each page carries only its own state's
+answers. Change it on the day a platform goes live, and nowhere else.
+
+- `css/site.css` is the site design's tokens (which mirror the app's
+  `docs/design-system.md`) and every rule. Colour pairs are declared in the
+  stylesheet as `/* @contrast --label on --surface: text */` and measured in
+  both schemes on every build.
 - `img/icon/` and `favicon.ico` are downscales of the app icon, never redrawn.
 - `img/badges/app-store-black.svg` is Apple's badge artwork, unmodified, from the
   App Store Marketing Tools page for this app. One badge per layout, at least
@@ -75,7 +83,7 @@ without holding up a policy change.
 
 ```
 python3 scripts/check-links.py _site
-python3 scripts/contrast.py css/tokens.css
+python3 scripts/contrast.py css/site.css
 ```
 
 **Launch, in this order:** set Settings, Pages, Source to "GitHub Actions"; then

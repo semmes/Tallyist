@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure the contrast pairs a stylesheet declares, in both colour schemes.
 
-    python3 contrast.py tokens.css            # prints a Markdown table
+    python3 contrast.py css/site.css          # prints a Markdown table
     python3 contrast.py css/site.css --quiet  # exit status only (1 on a failure)
 
 Dependency-free, so it can run in the site's deploy workflow unchanged.

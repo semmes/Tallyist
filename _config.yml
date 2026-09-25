@@ -5,6 +5,9 @@ description: Privacy policy and support for Tallyist, the iOS drink tracker.
 # so the checks follow.
 url: https://tallyist.co
 baseurl: ""
+# 1 while only the iPhone app is live, 2 once the watch app is, 3 once Android
+# is. The layout and support.md read it; see the README.
+platform_state: 1
 plugins: []
 exclude:
   - README.md

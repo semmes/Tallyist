@@ -1,0 +1,416 @@
+/*
+  tallyist.co, one stylesheet for every page.
+
+  Tokens are the site design's (the owner's Claude Design handoff, 2026-09-24),
+  which mirror the app's docs/design-system.md: one blue hue, iOS's grounds and
+  inks, the app's radii. Light values sit on :root and dark ones under
+  prefers-color-scheme; the site has no theme switch, so there is nothing else
+  to key on.
+
+  Every colour pair a page relies on is declared as an @contrast comment and
+  measured in both schemes by scripts/contrast.py, which the site workflow runs
+  over this file. Run it after any colour change:
+  python3 scripts/contrast.py css/site.css (the app's invariant 10: measured,
+  never eyeballed).
+
+  No web fonts, no framework, nothing loaded from another origin.
+*/
+
+:root {
+  color-scheme: light dark;
+
+  /* The Tallyist Blue ramp, the steps the site uses. */
+  --ramp-100: #cde2fb;
+  --ramp-200: #9ec5f4;
+  --ramp-250: #86b6ef;
+  --ramp-400: #3987e5;
+  --ramp-450: #2a78d6;
+  --ramp-500: #256abf;
+  --ramp-600: #184f95;
+  --ramp-650: #104281;
+  --ramp-700: #0d366b;
+
+  --accent: var(--ramp-500);
+  --accent-fill: var(--ramp-500);
+  --on-fill: #ffffff;
+
+  --surface: #f2f2f7;
+  --surface-card: #ffffff;
+  --ground: var(--surface);
+
+  --label: rgba(0, 0, 0, 0.88);
+  /* The design's secondary text is the label at 76%, written out so the
+     contrast check can read it: 0.88 × 0.76. iOS's own secondaryLabel is 3.44:1
+     on white, under the 4.5:1 text needs, so it is never used for text here. */
+  --label-2: rgba(0, 0, 0, 0.6688);
+  --label-secondary: rgba(60, 60, 67, 0.6);
+  --separator: rgba(60, 60, 67, 0.29);
+
+  --r-control: 14px;
+  --r-pill: 22px;
+  --r-card: 26px;
+  --r-sheet: 34px;
+  --touch: 44px;
+
+  --font: -apple-system, "SF Pro Text", "SF Pro Display", system-ui, "Helvetica Neue", sans-serif;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-y: clamp(72px, 10vw, 136px);
+  --page-top: clamp(32px, 6vw, 88px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: var(--ramp-400);
+    --accent-fill: var(--ramp-500);
+
+    --surface: #000000;
+    --surface-card: #1c1c1e;
+
+    --label: rgba(255, 255, 255, 0.92);
+    /* 0.92 × 0.76 */
+    --label-2: rgba(255, 255, 255, 0.6992);
+    --label-secondary: rgba(235, 235, 245, 0.6);
+    --separator: rgba(84, 84, 88, 0.6);
+  }
+}
+
+/* @contrast --label on --surface: text */
+/* @contrast --label on --surface-card: text */
+/* @contrast --label-2 on --surface: text */
+/* @contrast --label-2 on --surface-card: text */
+/* @contrast --accent on --surface: ui */
+/* @contrast --accent on --surface-card: ui */
+/* @contrast --on-fill on --accent-fill: text */
+/* @contrast --accent-fill on --surface: ui */
+/* @contrast --accent-fill on --surface-card: ui */
+
+/* Base */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--label);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+a:hover { text-decoration-thickness: 2.5px; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+summary { cursor: pointer; }
+
+img { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Header and footer */
+
+.site-header {
+  background: var(--surface);
+  padding: 16px var(--gutter);
+}
+.site-header nav {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+/* The icon beside the word is an exception to the app's mark rule, approved
+   for marketing only (docs/design-system.md, "The mark"). */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--touch);
+  text-decoration: none;
+}
+.brand img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 7.5px;
+}
+.brand span {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2.4vw, 28px);
+  font-size: 15px;
+  font-weight: 500;
+}
+.site-nav a,
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  text-decoration: none;
+}
+.site-nav a[aria-current="page"],
+.footer-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--separator);
+  padding: 40px var(--gutter) 48px;
+}
+.site-footer > div {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.site-footer p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--label-2);
+  max-width: 44em;
+  text-wrap: pretty;
+}
+
+/* Sections */
+
+.section {
+  background: var(--surface);
+  padding: var(--section-y) var(--gutter);
+}
+.section--card { background: var(--surface-card); }
+.section--page { padding-top: var(--page-top); }
+
+.eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--label-2);
+}
+
+.page-title {
+  margin: 0 0 24px;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0 0 36px;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.5;
+  color: var(--label-2);
+  text-wrap: pretty;
+}
+
+/* The two published documents. Their bodies are Markdown rendered by Jekyll,
+   generated in semmes/DrinkTracker and never edited here (ADR-0024), so they
+   are styled by position rather than by class. */
+
+.doc {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.doc > h1 {
+  margin: 0 0 12px;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.doc > h2 {
+  margin: 48px 0 16px;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.doc > p,
+.doc > ul,
+.doc > ol {
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.doc > ul,
+.doc > ol {
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.doc li > p { margin: 0; }
+
+/* The policy's date line: the paragraph right after its title. */
+.doc--policy > h1 + p {
+  margin: 0 0 clamp(40px, 6vw, 56px);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card {
+  padding: 28px 24px;
+  border-radius: var(--r-card);
+  background: var(--surface-card);
+  box-shadow: 0 0 0 1px var(--separator);
+}
+
+.site-note {
+  max-width: 720px;
+  margin: clamp(56px, 8vw, 88px) auto 0;
+}
+.site-note h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.site-note p {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.site-note p:last-child { margin-bottom: 0; }
+
+/* Support */
+
+.doc--support { max-width: 760px; }
+.doc--support > h1 { margin-bottom: 24px; }
+.doc--support > h1 + p {
+  margin: 0 0 36px;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.5;
+  color: var(--label-2);
+}
+.doc--support > h2 {
+  margin: clamp(56px, 8vw, 88px) 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--label-2);
+}
+
+.support-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin: 0 0 16px;
+  padding: 24px;
+  border-radius: var(--r-card);
+  background: var(--surface-card);
+  box-shadow: 0 0 0 1px var(--separator);
+}
+.support-contact__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: var(--r-pill);
+  background: var(--accent-fill);
+  color: var(--on-fill);
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.support-contact__address {
+  margin: 0;
+  font-size: 17px;
+}
+
+.doc--support > h2 + details { border-top: 1px solid var(--separator); }
+.doc details { border-bottom: 1px solid var(--separator); }
+.doc summary {
+  padding: 20px 0;
+  min-height: 24px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.doc details > p {
+  margin: 0 0 24px;
+  max-width: 38em;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--label-2);
+  text-wrap: pretty;
+}
+
+/* 404 */
+
+.section--notfound { padding: clamp(72px, 14vw, 200px) var(--gutter); }
+.notfound {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.notfound p {
+  margin: 0 0 32px;
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 1.5;
+  color: var(--label-2);
+}
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.link-row a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+}

@@ -15,9 +15,9 @@ app collects nothing.
 
 ## Documents
 
-- **[Privacy Policy](/Tallyist/privacy/)** — what the app stores, where it can
+- **[Privacy Policy]({{ site.baseurl }}/privacy/)** — what the app stores, where it can
   go, and what it never does.
-- **[Support](/Tallyist/support/)** — common questions, and how to reach the
+- **[Support]({{ site.baseurl }}/support/)** — common questions, and how to reach the
   developer.
 - [Terms of Use](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)
   — Apple's standard EULA.

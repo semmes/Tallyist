@@ -1,7 +1,7 @@
 title: Tallyist
 description: Privacy policy and support for Tallyist, the iOS drink tracker.
-url: https://semmes.github.io
-baseurl: /Tallyist
+url: https://tallyist.co
+baseurl: ""
 plugins: []
 exclude:
   - README.md

@@ -113,13 +113,12 @@ charged.
 
 ## Changes to this policy
 
-This policy is published in a public repository at
-<https://github.com/semmes/Tallyist>; every change to it, and its date, is
-visible in that repository's history. If a future version of the app ever
+This policy is kept under version control; every change to it, and its
+date, is recorded. If a future version of the app ever
 collects data — for example, if a server component is added — this policy and
 the App Store privacy labels will change *before* that version ships.
 
 ## Contact
 
-Questions about this policy can be raised as an issue on the app's public
-issue tracker: <https://github.com/semmes/Tallyist/issues>.
+Questions about this policy can be sent to
+[tallyist@gmail.com](mailto:tallyist@gmail.com).

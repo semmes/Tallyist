@@ -10,12 +10,17 @@
 {%- endcomment -%}
 {%- assign state = site.platform_state | default: 1 -%}
 {%- assign description = page.description | default: site.description -%}
+{%- if page.title and page.title != site.title -%}
+  {%- assign full_title = page.title | append: " · " | append: site.title -%}
+{%- else -%}
+  {%- assign full_title = site.title -%}
+{%- endif -%}
 <!doctype html>
 <html lang="en" data-state="{{ state }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title %}{{ page.title }} · {% endif %}Tallyist</title>
+<title>{{ full_title }}</title>
 <meta name="description" content="{{ description }}">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <meta name="color-scheme" content="light dark">
@@ -28,7 +33,7 @@
 <link rel="stylesheet" href="{{ site.baseurl }}/css/site.css">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tallyist">
-<meta property="og:title" content="{% if page.title %}{{ page.title }} · {% endif %}Tallyist">
+<meta property="og:title" content="{{ full_title }}">
 <meta property="og:description" content="{{ description }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 <meta name="twitter:card" content="summary">

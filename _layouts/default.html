@@ -36,7 +36,11 @@
 <meta property="og:title" content="{{ full_title }}">
 <meta property="og:description" content="{{ description }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{{ site.url }}/img/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Tallyist icon and name, the words Count what you drink. See your own pattern., and the Today screen on an iPhone.">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <header class="site-header">
@@ -46,6 +50,7 @@
       <span>Tallyist</span>
     </a>
     <div class="site-nav">
+      <a href="{{ site.baseurl }}/watch/"{% if page.url == "/watch/" %} aria-current="page"{% endif %}>Apple Watch</a>
       <a href="{{ site.baseurl }}/support/"{% if page.url == "/support/" %} aria-current="page"{% endif %}>Support</a>
     </div>
   </nav>
@@ -59,7 +64,7 @@
   </article>
   <aside class="site-note card" aria-labelledby="this-website">
     <h2 id="this-website">This website</h2>
-    <p>tallyist.co sets no cookies, loads nothing from other sites, and collects nothing. There are no scripts on any page.</p>
+    <p>tallyist.co sets no cookies, loads nothing from other sites, and collects nothing. There are no scripts on any page. On iPhone and iPad, Safari may show its own App Store banner at the top of a page, with details Safari fetches from Apple.</p>
     <p>The site is hosted on GitHub Pages. GitHub keeps its own server logs, covered by the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub General Privacy Statement</a>. Tallyist does not see them.</p>
   </aside>
 </div>
@@ -85,9 +90,12 @@
     <nav class="footer-nav" aria-label="Footer">
       <a href="{{ site.baseurl }}/privacy/"{% if page.url == "/privacy/" %} aria-current="page"{% endif %}>Privacy</a>
       <a href="{{ site.baseurl }}/support/"{% if page.url == "/support/" %} aria-current="page"{% endif %}>Support</a>
+      <a href="{{ site.baseurl }}/press/"{% if page.url == "/press/" %} aria-current="page"{% endif %}>Press</a>
+      <a href="{{ site.baseurl }}/watch/"{% if page.url == "/watch/" %} aria-current="page"{% endif %}>Apple Watch</a>
     </nav>
-    <p>Tallyist is for adults of legal drinking age. It records what you report drinking and offers no medical advice, diagnosis, or guidelines.</p>
+    <p>Tallyist is available for {% if state >= 2 %}iPhone, iPad, and Apple Watch{% else %}iPhone and iPad{% endif %}. It is for adults of legal drinking age. It records what you report drinking and offers no medical advice, diagnosis, or guidelines.</p>
     <p>© 2026 Tallyist</p>
+    <p class="legal">Apple, the Apple logo, Apple Watch, iCloud, iPad, iPhone, Safari, Siri, and watchOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.{% if state >= 3 %} Google Play and the Google Play logo are trademarks of Google LLC.{% endif %}</p>
   </div>
 </footer>
 </body>

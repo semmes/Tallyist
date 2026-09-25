@@ -1,0 +1,7 @@
+{%- comment -%}
+  The app on Apple Watch: the screenshot inside Apple's device image, flattened.
+{%- endcomment -%}
+<picture class="device device--watch">
+  <source type="image/webp" srcset="{{ site.baseurl }}/img/screens/watch/{{ include.name }}-260.webp 260w, {{ site.baseurl }}/img/screens/watch/{{ include.name }}-520.webp 520w" sizes="(max-width: 600px) 42vw, 260px">
+  <img src="{{ site.baseurl }}/img/screens/watch/{{ include.name }}-260.png" alt="{{ include.alt }}" width="260" height="409"{% if include.eager %}{% else %} loading="lazy"{% endif %}>
+</picture>

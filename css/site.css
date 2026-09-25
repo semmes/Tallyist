@@ -414,3 +414,390 @@ img { max-width: 100%; }
   align-items: center;
   min-height: var(--touch);
 }
+
+/* The home, Apple Watch and Press pages */
+
+.container { max-width: 1120px; margin: 0 auto; }
+.section--hero { padding-top: var(--page-top); }
+.section--compact { padding: clamp(56px, 7vw, 96px) var(--gutter); }
+.section--statement { padding: clamp(88px, 12vw, 160px) var(--gutter); }
+
+.display {
+  margin: 0 0 24px;
+  font-size: clamp(42px, 6.6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.heading {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 4.6vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.heading--small {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 3.4vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.body {
+  margin: 0;
+  font-size: clamp(17px, 1.55vw, 20px);
+  line-height: 1.5;
+  color: var(--label-2);
+  text-wrap: pretty;
+}
+.hero-lead {
+  margin: 0 0 40px;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.5;
+  color: var(--label-2);
+  text-wrap: pretty;
+}
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  margin-top: 28px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* A feature: text beside its picture. Rows alternate which side the picture
+   is on, and stack text first below about 700px. */
+.row {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(48px, 7vw, 112px);
+}
+.row--reverse { flex-direction: row-reverse; }
+.row__text {
+  flex: 1 1 340px;
+  min-width: 0;
+  max-width: 500px;
+}
+.row__text--hero {
+  flex-basis: 360px;
+  max-width: 560px;
+}
+.row__media {
+  flex: 0 1 300px;
+  min-width: 0;
+  width: 100%;
+}
+.row__media--watch { flex-basis: 260px; }
+
+/* The app inside Apple's own device images, flattened into one picture
+   (scripts/make-images.py). Used whole: Apple's marketing guidelines allow no
+   cropping, tilting, shadows or anything drawn over them. */
+.device { display: block; margin: 0 auto; }
+.device img { display: block; width: 100%; height: auto; }
+.device--phone { max-width: 300px; }
+.device--hero { max-width: 320px; }
+.device--watch { max-width: 260px; }
+
+.pair {
+  flex: 1 1 400px;
+  min-width: 0;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2.4vw, 28px);
+  align-items: start;
+}
+.pair--watch { max-width: 520px; }
+.pair > :nth-child(2) { margin-top: clamp(24px, 6vw, 64px); }
+
+figure { margin: 0; }
+.caption {
+  max-width: 320px;
+  margin: 16px auto 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--label-2);
+  text-align: center;
+  text-wrap: pretty;
+}
+
+/* Close-ups: crops of a screenshot, with no device drawn around them. */
+.crops {
+  flex: 1 1 340px;
+  min-width: 0;
+  max-width: 520px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+.crop picture {
+  display: block;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--separator);
+}
+.crop img { display: block; width: 100%; height: auto; }
+.crop figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--label-2);
+}
+
+/* Store badges. Apple's badge is its own artwork, used as supplied: at least
+   40px tall, with clear space of a quarter of its height, one per page. */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 28px;
+}
+.badge {
+  display: inline-flex;
+  border-radius: 9px;
+}
+.badge img {
+  display: block;
+  width: 150px;
+  height: 50px;
+}
+
+.platforms {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  font-size: 15px;
+  line-height: 1.3;
+}
+.platforms li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.platforms strong { font-weight: 600; }
+.dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--label);
+}
+.dot--coming {
+  background: none;
+  border: 1.5px solid var(--label);
+}
+
+.features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px 48px;
+}
+.features li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.features svg {
+  stroke: var(--accent);
+  color: var(--accent);
+}
+.features h3 {
+  margin: 6px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.features p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--label-2);
+}
+.heading--grid {
+  max-width: 14em;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.facts {
+  margin: 0 0 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--separator);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--separator);
+}
+.facts > div {
+  background: var(--surface-card);
+  padding: 28px 24px;
+}
+.facts dt {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.facts dd {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--label-2);
+}
+.body--intro {
+  max-width: 36em;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.centered {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.centered .body {
+  max-width: 30em;
+  margin: 0 auto;
+}
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.closing .heading { margin: 0; }
+.closing img.icon {
+  display: block;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+}
+.closing .more-link { margin: 0; }
+.closing .platforms { justify-content: center; }
+
+/* Apple Watch */
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  margin: 0 0 clamp(40px, 6vw, 72px);
+  padding: 16px 20px;
+  border-radius: var(--r-control);
+  box-shadow: inset 0 0 0 1.5px var(--label);
+}
+.banner strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.banner span {
+  font-size: 16px;
+  color: var(--label-2);
+}
+.statement {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.statement .heading {
+  margin-bottom: 28px;
+  font-size: clamp(34px, 5.4vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+.statement .body {
+  max-width: 36em;
+  font-size: clamp(17px, 1.7vw, 21px);
+}
+.install {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.install .heading {
+  margin: 0;
+  font-size: clamp(28px, 3.8vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.install p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--label-2);
+}
+.install .badges { margin: 0; }
+
+/* Press */
+
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(40px, 5vw, 64px);
+}
+.press-grid h2,
+.press-title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.press-title { margin-top: clamp(56px, 8vw, 96px); margin-bottom: 24px; }
+.press-grid p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label-2);
+}
+.press-grid p.contact {
+  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--label);
+}
+.press-lead {
+  max-width: 36em;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+.press-icon {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: 0 0 20px;
+  border-radius: 36px;
+}
+.press-shots {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+.press-shots li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+/* Plain screenshots with square corners: no device, and nothing shaped
+   like one. */
+.press-shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 0 1px var(--separator);
+}
+
+/* The footer's legal lines. */
+.site-footer .legal { font-size: 12px; }

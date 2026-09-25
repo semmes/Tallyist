@@ -14,9 +14,12 @@ repository's history, and this repository is where that stays true.
 
 | Page | Source | Published at |
 | --- | --- | --- |
+| Home | `index.html` | `/` |
+| Apple Watch | `watch/index.html` | `/watch/` |
 | Privacy Policy | `privacy-policy.md` (generated) | `/privacy/` |
 | Support | `support.md` (generated) | `/support/` |
-| Home | `index.md`, to be replaced by the site's `index.html` | `/` |
+| Press | `press/index.html` | `/press/` |
+| Not found | `404.html` | any other address |
 
 ## The two generated documents
 
@@ -60,10 +63,26 @@ answers. Change it on the day a platform goes live, and nowhere else.
   `docs/design-system.md`) and every rule. Colour pairs are declared in the
   stylesheet as `/* @contrast --label on --surface: text */` and measured in
   both schemes on every build.
+- `_includes/` holds the markup for a device picture, a close-up, and the App
+  Store badge, so a page names a screen and its description and nothing else.
+- `img/screens/` is the app inside Apple's own device images, one flattened
+  picture per screen, in WebP at 1x and 2x with a PNG for browsers without WebP.
+  `scripts/make-images.py` makes them, the link preview (`img/og/home.png`) and
+  the press kit (`img/press/`) from the site design's screenshots and Apple's
+  Product Bezels. The bezels open only after agreeing to Apple's License
+  Agreement for Apple Design Resources (the owner agreed on 2026-09-24), and
+  they are never committed here: the license allows images of the app shown in
+  the device, not the device art passed on by itself. Apple's marketing
+  guidelines add the rest: a device used whole, with nothing cropped, tilted or
+  drawn over it and no shadow; one App Store badge per page; and the credit line
+  for Apple's trademarks, which is in the footer. Close-ups are crops of a
+  screenshot with no device in them.
 - `img/icon/` and `favicon.ico` are downscales of the app icon, never redrawn.
-- `img/badges/app-store-black.svg` is Apple's badge artwork, unmodified, from the
-  App Store Marketing Tools page for this app. One badge per layout, at least
-  40 px tall, clear space of a quarter of its height, per Apple's guidelines.
+- `img/badges/` is Apple's badge artwork, unmodified, from the App Store
+  Marketing Tools page for this app: black, and white for dark pages while it is
+  the only store badge on the page. One badge per layout, at least 40 px tall,
+  clear space of a quarter of its height, per Apple's guidelines; the home page's
+  closing section says "Available on the App Store" as a link instead.
 - Copy follows the app's tone rules (report, never instruct) and goes through
   the same 1.4.3 review log as the app's own strings, in the app repository.
 

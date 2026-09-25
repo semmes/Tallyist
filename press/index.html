@@ -1,0 +1,69 @@
+---
+layout: default
+title: Press
+description: About Tallyist, for the press. A short description, the icon, screenshots, and an email address.
+permalink: /press/
+bare: true
+---
+{%- assign state = site.platform_state | default: 1 -%}
+<section class="section section--page" aria-labelledby="h-pr">
+  <div class="container">
+    <h1 class="page-title" id="h-pr">Press</h1>
+    <p class="lead press-lead">Tallyist is a free {% if state >= 2 %}app for iPhone and Apple Watch{% else %}iPhone app{% endif %} that counts what you drink and shows your own pattern: a calendar shaded by amount, weekly and monthly totals, and your own average. It has no account, no servers, no analytics, no goals, and no advice.</p>
+    <div class="press-grid">
+      <div>
+        <h2>The icon</h2>
+        <img class="press-icon" src="{{ site.baseurl }}/img/icon/icon-512.png" alt="The Tallyist icon: four white tally strokes crossed by a light blue slash, on a deep blue field." width="160" height="160">
+        <p>Use the mark alone, at any size, without recolouring it or setting it beside text. The name is one word: Tallyist.</p>
+        <div class="link-row">
+          <a href="{{ site.baseurl }}/img/icon/icon-1024.png" download>PNG, 1024 px</a>
+          <a href="{{ site.baseurl }}/img/icon/icon-512.png" download>PNG, 512 px</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p class="contact"><a href="mailto:tallyist@gmail.com">tallyist@gmail.com</a></p>
+        <p>The same address as support.</p>
+      </div>
+    </div>
+    <h2 class="press-title">Screenshots</h2>
+    <ul class="press-shots">
+      <li>
+        <picture>
+          <source type="image/webp" srcset="{{ site.baseurl }}/img/press/today-300.webp 300w, {{ site.baseurl }}/img/press/today-600.webp 600w" sizes="(max-width: 500px) 45vw, 200px">
+          <img src="{{ site.baseurl }}/img/press/today-300.png" alt="The Today screen with a count of 2." width="300" height="652" loading="lazy">
+        </picture>
+        <span>Today</span>
+      </li>
+      <li>
+        <picture>
+          <source type="image/webp" srcset="{{ site.baseurl }}/img/press/calendar-300.webp 300w, {{ site.baseurl }}/img/press/calendar-600.webp 600w" sizes="(max-width: 500px) 45vw, 200px">
+          <img src="{{ site.baseurl }}/img/press/calendar-300.png" alt="The Calendar for September 2026, days shaded by amount." width="300" height="652" loading="lazy">
+        </picture>
+        <span>Calendar</span>
+      </li>
+      <li>
+        <picture>
+          <source type="image/webp" srcset="{{ site.baseurl }}/img/press/trends-300.webp 300w, {{ site.baseurl }}/img/press/trends-600.webp 600w" sizes="(max-width: 500px) 45vw, 200px">
+          <img src="{{ site.baseurl }}/img/press/trends-300.png" alt="Trends for the last 13 weeks, 55 standard drinks." width="300" height="652" loading="lazy">
+        </picture>
+        <span>Trends</span>
+      </li>
+      <li>
+        <picture>
+          <source type="image/webp" srcset="{{ site.baseurl }}/img/press/detail-sheet-300.webp 300w, {{ site.baseurl }}/img/press/detail-sheet-600.webp 600w" sizes="(max-width: 500px) 45vw, 200px">
+          <img src="{{ site.baseurl }}/img/press/detail-sheet-300.png" alt="The drink sheet: beer, 12 oz can, 5% ABV." width="300" height="652" loading="lazy">
+        </picture>
+        <span>Drink sheet</span>
+      </li>
+      <li>
+        <picture>
+          <source type="image/webp" srcset="{{ site.baseurl }}/img/press/settings-300.webp 300w, {{ site.baseurl }}/img/press/settings-600.webp 600w" sizes="(max-width: 500px) 45vw, 200px">
+          <img src="{{ site.baseurl }}/img/press/settings-300.png" alt="Settings: appearance, what the counter logs, session pace, and comparisons." width="300" height="652" loading="lazy">
+        </picture>
+        <span>Settings</span>
+      </li>
+    </ul>
+    <a class="more-link" href="{{ site.baseurl }}/img/press/tallyist-screenshots.zip" download>All screenshots, light and dark (zip)</a>
+  </div>
+</section>

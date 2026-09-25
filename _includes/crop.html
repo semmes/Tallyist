@@ -1,0 +1,13 @@
+{%- comment -%}
+  A close-up: a square crop of a screenshot, with no device around it.
+{%- endcomment -%}
+<figure class="crop">
+  <picture>
+{%- if include.dark %}
+    <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="{{ site.baseurl }}/img/screens/dark/{{ include.name }}-300.webp 300w, {{ site.baseurl }}/img/screens/dark/{{ include.name }}-600.webp 600w" sizes="(max-width: 700px) 45vw, 290px">
+{%- endif %}
+    <source type="image/webp" srcset="{{ site.baseurl }}/img/screens/light/{{ include.name }}-300.webp 300w, {{ site.baseurl }}/img/screens/light/{{ include.name }}-600.webp 600w" sizes="(max-width: 700px) 45vw, 290px">
+    <img src="{{ site.baseurl }}/img/screens/light/{{ include.name }}-300.png" alt="{{ include.alt }}" width="300" height="300" loading="lazy">
+  </picture>
+  <figcaption>{{ include.caption }}</figcaption>
+</figure>

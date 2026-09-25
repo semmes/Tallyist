@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tallyist.co/sitemap.xml

@@ -1,0 +1,100 @@
+name: Site
+
+# Builds the site on every pull request and every push to main, checks it, and
+# deploys it from main once Pages is switched to this workflow.
+#
+# Until launch, Pages keeps building this repository from the main branch the
+# way it always has (Settings, Pages, Source: "Deploy from a branch"), so a
+# merge keeps the two documents live exactly as before and this workflow only
+# checks. At launch, in this order: set the Pages source to "GitHub Actions",
+# then set the repository variable DEPLOY_FROM_ACTIONS to true. The deploy job
+# waits on that variable, so it never fails against a site not yet configured
+# for it.
+#
+# The mirror in semmes/DrinkTracker pushes privacy-policy.md and support.md here
+# with a personal access token. A push made that way starts this workflow, so a
+# policy change deploys through the same checks as everything else.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Daily, for the outbound links only: a store page or a document the site
+    # links to can disappear without anything here changing.
+    - cron: "41 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and check
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # GitHub's own Jekyll, the same build the branch source runs today. It
+      # renders the two mirrored documents through _layouts/default.html and
+      # copies every file without front matter, the site's pages included,
+      # through untouched.
+      - name: Build
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Links, origins, scripts and alt text
+        run: python3 scripts/check-links.py _site
+
+      - name: Contrast in both colour schemes
+        run: |
+          for css in css/*.css; do
+            if grep -q '@contrast' "$css"; then
+              echo "== $css"
+              python3 scripts/contrast.py "$css"
+            fi
+          done
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./_site
+
+  # Separate from the build so that a store's server being slow for a minute
+  # never holds up a policy change. A pull request still shows it failing.
+  outbound:
+    name: Outbound links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Every link to another site answers
+        run: python3 scripts/check-links.py _site --external
+
+  deploy:
+    name: Deploy
+    needs: build
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.event_name != 'schedule' &&
+      github.ref == 'refs/heads/main' &&
+      vars.DEPLOY_FROM_ACTIONS == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

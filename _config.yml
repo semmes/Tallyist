@@ -1,7 +1,14 @@
 title: Tallyist
 description: Privacy policy and support for Tallyist, the iOS drink tracker.
+# tallyist.co is attached (the repository's Pages settings and CNAME), so the
+# site is served from the root. scripts/check-links.py reads baseurl from here,
+# so the checks follow.
 url: https://tallyist.co
 baseurl: ""
+# 1 while only the iPhone app is live, 2 once the watch app is, 3 once Android
+# is. The layout and support.md read it; see the README.
+platform_state: 1
 plugins: []
 exclude:
   - README.md
+  - scripts

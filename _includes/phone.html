@@ -1,0 +1,14 @@
+{%- comment -%}
+  The app on an iPhone: the screenshot inside Apple's device image, flattened
+  (scripts/make-images.py). name: a file in img/screens/light (and dark, when
+  dark is true); alt: what the screen shows; hero: the larger size and loaded
+  first; the rest load lazily.
+{%- endcomment -%}
+{%- if include.hero -%}{%- assign sizes = "(max-width: 400px) 84vw, 320px" -%}{%- else -%}{%- assign sizes = include.sizes | default: "(max-width: 380px) 80vw, 300px" -%}{%- endif -%}
+<picture class="device device--phone{% if include.hero %} device--hero{% endif %}">
+{%- if include.dark %}
+  <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="{{ site.baseurl }}/img/screens/dark/{{ include.name }}-320.webp 320w, {{ site.baseurl }}/img/screens/dark/{{ include.name }}-640.webp 640w" sizes="{{ sizes }}">
+{%- endif %}
+  <source type="image/webp" srcset="{{ site.baseurl }}/img/screens/light/{{ include.name }}-320.webp 320w, {{ site.baseurl }}/img/screens/light/{{ include.name }}-640.webp 640w" sizes="{{ sizes }}">
+  <img src="{{ site.baseurl }}/img/screens/light/{{ include.name }}-320.png" alt="{{ include.alt }}" width="320" height="654"{% if include.hero %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+</picture>

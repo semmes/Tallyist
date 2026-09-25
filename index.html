@@ -1,0 +1,238 @@
+---
+layout: default
+description: Count what you drink and see your own pattern. One tap per drink, a calendar shaded by amount, and your own average. No account, no goals, no advice.
+permalink: /
+bare: true
+---
+{%- assign state = site.platform_state | default: 1 -%}
+<section class="section section--hero" aria-labelledby="h-hero">
+  <div class="row">
+    <div class="row__text row__text--hero">
+      <h1 class="display" id="h-hero">Count what you drink. See your own pattern.</h1>
+      <p class="hero-lead">One tap per drink, from the app or the widget. A calendar shaded by amount, weekly and monthly totals, and your own average. No account, no goals, no advice.</p>
+      <div class="badges">
+        {% include app-store-badge.html %}
+      </div>
+      <ul class="platforms" aria-label="Platforms">
+        <li><span class="dot" aria-hidden="true"></span><span><strong>iPhone</strong> · Available now</span></li>
+        {%- if state >= 2 %}
+        <li><span class="dot" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Installs with the iPhone app</span></li>
+        {%- else %}
+        <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Coming with Tallyist 1.4</span></li>
+        {%- endif %}
+        {%- if state >= 3 %}
+        <li><span class="dot" aria-hidden="true"></span><span><strong>Android</strong> · Available now</span></li>
+        {%- else %}
+        <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Android</strong> · Coming</span></li>
+        {%- endif %}
+      </ul>
+    </div>
+    <div class="row__media row__media--hero">
+      {% include phone.html name="today" dark=true hero=true alt="The Today screen: a counter reading 2 drinks today, about 2.7 standard drinks, with minus and plus buttons. Below it, today’s log lists a beer at 10:06 PM and one standard drink at 10:05 PM." %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-tap">
+  <div class="row row--reverse">
+    <div class="row__text">
+      <h2 class="heading" id="h-tap">From what’s on tap, to on tap.</h2>
+      <p class="body">Not just for the beer drinkers. The Today screen and the Home Screen widget both log a drink with a single tap. Everything else is optional and happens later.</p>
+    </div>
+    <div class="crops">
+      {% include crop.html name="today-close" dark=true caption="Today, in the app" alt="Close-up of the Today counter: 2 drinks today, between a minus and a plus button." %}
+      {% include crop.html name="widget" caption="The widget, on the Home Screen" alt="A Home Screen with the small Tallyist widget, reading 2 drinks today, with a plus button." %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-pattern">
+  <div class="row">
+    <div class="row__text">
+      <h2 class="heading" id="h-pattern">A calendar you can read at a glance.</h2>
+      <p class="body">Days shade by amount. Weeks and months add up.</p>
+    </div>
+    <figure class="row__media">
+      {% include phone.html name="calendar" dark=true alt="The Calendar for September 2026. Most days from the 1st to the 23rd are outlined as no alcohol. The 10th, 11th, 15th and today, the 24th, are 1 to 2 standard drinks. The 19th is 3 to 5. The 5th is 6 to 9." %}
+      <figcaption class="caption">September, as logged: no alcohol on most days, 1 to 2 standard drinks on four, 3 to 5 on one, and 6 to 9 on the 5th.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-specify">
+  <div class="row row--reverse">
+    <div class="row__text">
+      <h2 class="heading" id="h-specify">Say what it was, when you feel like it.</h2>
+      <p class="body">Beer, wine, spirit, cocktail. Size and strength if you want them. Or leave it as a drink, which is also fine.</p>
+    </div>
+    <div class="row__media">
+      {% include phone.html name="detail-sheet" alt="The drink sheet over the Today screen: Beer selected, a 12 oz can, strength set to 5% ABV, equal to about 1 standard drink, and a Log drink button." %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-history">
+  <div class="row">
+    <div class="row__text">
+      <h2 class="heading" id="h-history">Yesterday counts too.</h2>
+      <p class="body">Add a drink to any past day, change one, or remove one. The log is yours to keep accurate.</p>
+    </div>
+    <div class="row__media">
+      {% include phone.html name="history" dark=true alt="History, grouped by day: Wednesday, September 23 with a beer and one standard drink, 2.7 in total; Tuesday, September 22 with a cocktail and two beers." %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-trends">
+  <div class="row row--reverse">
+    <div class="row__text">
+      <h2 class="heading" id="h-trends">Your weeks, your weekdays, your weekends.</h2>
+      <p class="body">Charts of what you logged, side-by-side comparisons of your own days, and optional references from published US surveys, each named and dated in the app. The dashed line is your own average, not a target.</p>
+    </div>
+    <div class="pair">
+      {% include phone.html name="trends" dark=true sizes="(max-width: 700px) 42vw, 260px" alt="Trends for the last 13 weeks: 55 standard drinks over 28 days with drinks, a bar per week from July to September against a dashed line marked Your weekly average, 4.5. Below, 0.6 per day on average, and 61 of 89 days with no drinks logged." %}
+      {% include phone.html name="settings" dark=true sizes="(max-width: 700px) 42vw, 260px" alt="Settings, Comparisons: a Weekly average reference sourced to the Alcohol Research Group’s 2020 National Alcohol Survey, compared with all adults, men, or women." %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-session">
+  <div class="row">
+    <div class="row__text">
+      <h2 class="heading" id="h-session">Session pacing</h2>
+      <p class="body">An optional card that shows how many drinks you have logged in the current sitting, when it started, and when the last one was. Off by default. It sets no limit and sends no notification.</p>
+    </div>
+    <div class="row__media">
+      {% include phone.html name="session" dark=true alt="The Today screen with the session pace card: 2 drinks this session, started 10:05 PM, last drink 17 min ago." %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-watch">
+  <div class="row row--reverse">
+    <div class="row__text">
+      {%- if state < 2 %}
+      <p class="eyebrow">Coming with Tallyist 1.4</p>
+      {%- endif %}
+      <h2 class="heading" id="h-watch">Phones away.</h2>
+      <p class="body">Tap the number to hide the amount, hold the plus to say what the drink type is.</p>
+      <a class="more-link" href="{{ site.baseurl }}/watch/">About Tallyist on Apple Watch</a>
+    </div>
+    <div class="row__media row__media--watch">
+      {% include watch.html name="counter" alt="The watch counter: 3 drinks today, about 3 standard drinks, between a minus and a plus button, with the 1–2, 3–5, 6–9 and 10+ legend below." %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--compact" aria-labelledby="h-android">
+  <div class="container">
+    {%- if state >= 3 %}
+    <h2 class="heading heading--small" id="h-android">On Android.</h2>
+    {%- else %}
+    <h2 class="heading heading--small" id="h-android">Android is coming.</h2>
+    {%- endif %}
+    <p class="body">Same app, same rules. No account is required. Tallyist asks for no sign-in, and has no permission to use the internet.</p>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-more">
+  <div class="container">
+    <h2 class="heading heading--grid" id="h-more">Everything else.</h2>
+    <ul class="features">
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"></path></svg>
+        <h3>Appearance</h3>
+        <p>System, light, or dark.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10l-1.4 16H8.4z"></path><path d="M7.6 10h8.8"></path></svg>
+        <h3>Standard drink size</h3>
+        <p>United States, United Kingdom, or Australia. Past days recount when you change it.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"></path></svg>
+        <h3>Apple Health</h3>
+        <p>Optional. Saves your drinks to Health if you allow it, and shows drinks other apps recorded there.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 18.5h9.9a4.1 4.1 0 0 0 .5-8.2 5.8 5.8 0 0 0-11.1 1.3 3.5 3.5 0 0 0 .7 6.9z"></path></svg>
+        <h3>iCloud sync</h3>
+        <p>Your log on your own devices, through your own iCloud.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="2"></rect><rect x="13" y="4" width="7" height="7" rx="2"></rect><rect x="4" y="13" width="16" height="7" rx="2"></rect></svg>
+        <h3>Fill a stretch</h3>
+        <p>Press and drag across the calendar to fill several days at once.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h1.5M8 8.5v7M12 5v14M16 8.5v7M20 12h-1.5"></path></svg>
+        <h3>Siri and Shortcuts</h3>
+        <p>Log by voice with Siri, or from Shortcuts and the Action button.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11"></path><path d="M8 7.5l4-4 4 4"></path><path d="M6.5 11H6v9h12v-9h-.5"></path></svg>
+        <h3>Share a month or year</h3>
+        <p>An image of the calendar and its totals, made on your device, sent only where you send it.</p>
+      </li>
+      <li>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4 4v13H6z"></path><path d="M14 3.5v4h4"></path><path d="M9 12.5h6M9 16h6"></path></svg>
+        <h3>CSV export</h3>
+        <p>Your whole log as a spreadsheet file.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-privacy">
+  <div class="container">
+    <h2 class="heading" id="h-privacy">Yours, and only yours.</h2>
+    <p class="body body--intro">Apple Health is optional, and the app works without it.</p>
+    <dl class="facts">
+      <div>
+        <dt>No account required</dt>
+        <dd>There is nothing to sign up for.</dd>
+      </div>
+      <div>
+        <dt>No servers</dt>
+        <dd>Tallyist runs none. Your log never reaches the developer.</dd>
+      </div>
+      <div>
+        <dt>No analytics</dt>
+        <dd>Nothing about how you use the app is collected.</dd>
+      </div>
+      <div>
+        <dt>Your own storage</dt>
+        <dd>On iPhone, your log lives on your device and in your own iCloud, where Tallyist cannot see it.{% if state >= 3 %} On Android, your log is stored on the device, and in your own Android backup if you use one.{% endif %}</dd>
+      </div>
+    </dl>
+    <a class="more-link" href="{{ site.baseurl }}/privacy/">Read the privacy policy</a>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-free">
+  <div class="centered">
+    <h2 class="heading" id="h-free">Free. All of it.</h2>
+    <p class="body">There’s a tip jar in Settings, where you can buy me a drink.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-get">
+  <div class="centered closing">
+    <img class="icon" src="{{ site.baseurl }}/img/icon/icon-512.png" alt="" width="88" height="88" loading="lazy">
+    <h2 class="heading" id="h-get">Tallyist</h2>
+    <a class="more-link" href="https://apps.apple.com/app/id6798458165" rel="noopener">Available on the App Store</a>
+    <ul class="platforms" aria-label="Platforms">
+      <li><span class="dot" aria-hidden="true"></span><span><strong>iPhone</strong> · Available now</span></li>
+      {%- if state >= 2 %}
+      <li><span class="dot" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Installs with the iPhone app</span></li>
+      {%- else %}
+      <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Coming with Tallyist 1.4</span></li>
+      {%- endif %}
+      {%- if state >= 3 %}
+      <li><span class="dot" aria-hidden="true"></span><span><strong>Android</strong> · Available now</span></li>
+      {%- else %}
+      <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Android</strong> · Coming</span></li>
+      {%- endif %}
+    </ul>
+  </div>
+</section>

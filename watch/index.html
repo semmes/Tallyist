@@ -1,0 +1,66 @@
+---
+layout: default
+title: Apple Watch
+description: Tallyist on Apple Watch. Log a drink from your wrist, say what it was with a hold, and see today’s count on the face.
+permalink: /watch/
+bare: true
+---
+{%- assign state = site.platform_state | default: 1 -%}
+<section class="section section--hero" aria-labelledby="h-w1">
+  <div class="container">
+    {%- if state < 2 %}
+    <p class="banner"><strong>Coming with Tallyist 1.4</strong> <span>Requires the iPhone app and watchOS 26 or later.</span></p>
+    {%- endif %}
+    <div class="row">
+      <div class="row__text row__text--hero">
+        <h1 class="display" id="h-w1">Keep the conversation going.</h1>
+        <p class="hero-lead">Hold down the plus to log the type, or a quick tap just logs the drink and you can say what it was later on in the app. Tap the number and it’ll hide your count.</p>
+      </div>
+      <div class="pair pair--watch">
+        {% include watch.html name="counter" eager=true alt="The watch counter: 3 drinks today, about 3 standard drinks, between a minus and a plus button, with the 1–2, 3–5, 6–9 and 10+ legend below." %}
+        {% include watch.html name="type-picker" eager=true alt="The watch type picker: Beer, Wine, Spirit, Cocktail, and Other." %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--card" aria-labelledby="h-w2">
+  <div class="row row--reverse">
+    <div class="row__text">
+      <h2 class="heading" id="h-w2">Today’s count, on the face or in the Smart Stack.</h2>
+      <p class="body">A complication shows the number you have logged today. Tap it to open the counter. In the Smart Stack, the card has its own plus.</p>
+    </div>
+    <div class="row__media row__media--watch">
+      {% include watch.html name="face-complication" alt="The Smart Stack on Apple Watch at 10:30. The Tallyist card shows 4 drinks today, a plus button, and four dots for the current session." %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-w3">
+  <div class="row">
+    <div class="row__text">
+      <h2 class="heading" id="h-w3">Sessions, as a row of dots.</h2>
+      <p class="body">One dot for each drink in the current session. Countable at a glance, and nothing more. Off until you turn it on.</p>
+    </div>
+    <div class="row__media row__media--watch">
+      {% include watch.html name="session-dots" alt="The watch counter at 3 drinks today, with three dots below it for the current sitting and the line 3 · 1m." %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--card section--statement" aria-labelledby="h-w4">
+  <div class="statement">
+    <h2 class="heading" id="h-w4">The watch shows what you already know and hides it from everyone else.</h2>
+    <p class="body">In the app, tap the count to hide it, and it hides by itself when you lower your wrist. On the watch face, it hides while the watch is locked, as it is once you take it off.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-w5">
+  <div class="centered install">
+    <h2 class="heading" id="h-w5">The watch app installs with the iPhone app.</h2>
+    <p>{% if state < 2 %}Coming with Tallyist 1.4. Requires the iPhone app and watchOS 26 or later.{% else %}Requires the iPhone app. watchOS 26 and later.{% endif %}</p>
+    <div class="badges">
+      {% include app-store-badge.html %}
+    </div>
+  </div>
+</section>

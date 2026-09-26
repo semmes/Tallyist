@@ -54,7 +54,10 @@
 
   --font: -apple-system, "SF Pro Text", "SF Pro Display", system-ui, "Helvetica Neue", sans-serif;
   --gutter: clamp(20px, 5vw, 64px);
-  --section-y: clamp(72px, 10vw, 136px);
+  /* Between sections. Was clamp(72px, 10vw, 136px): 272px of empty ground
+     between one feature and the next at desktop widths, about a third of
+     the home page's height. */
+  --section-y: clamp(56px, 7vw, 96px);
   --page-top: clamp(32px, 6vw, 88px);
 }
 
@@ -88,7 +91,13 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* An in-page link scrolls rather than jumps, so the reader sees where
+     it went. Off under reduced motion, below. */
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -121,6 +130,7 @@ img { max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
 }
 
 .visually-hidden {
@@ -221,7 +231,14 @@ img { max-width: 100%; }
   background: var(--surface);
   padding: var(--section-y) var(--gutter);
 }
-.section--card { background: var(--surface-card); }
+/* A card section's edges are drawn. Its tint alone measures about 1.1:1
+   against the ground in light and 1.2:1 in dark, a surface rather than an
+   edge, so a few pixels of it at the bottom of a screen say nothing. */
+.section--card {
+  background: var(--surface-card);
+  border-top: 1px solid var(--separator);
+  border-bottom: 1px solid var(--separator);
+}
 .section--page { padding-top: var(--page-top); }
 
 .eyebrow {
@@ -418,10 +435,18 @@ img { max-width: 100%; }
 /* The home, Apple Watch and Press pages */
 
 .container { max-width: 1120px; margin: 0 auto; }
-.section--hero { padding-top: var(--page-top); }
-.section--compact { padding: clamp(56px, 7vw, 96px) var(--gutter); }
+/* The hero ends close to its content, so the next section's edge, and on
+   most screens its heading, is inside the first screen. Before, 136px of
+   empty ground under the phone met the bottom of a 1512×850 or 1920×950
+   window almost exactly, and the page looked finished. */
+.section--hero {
+  padding-top: var(--page-top);
+  padding-bottom: clamp(32px, 4vw, 56px);
+}
+.section--hero + .section { padding-top: clamp(40px, 5vw, 64px); }
+.section--compact { padding: clamp(40px, 5vw, 64px) var(--gutter); }
 .section--compact .body { max-width: 640px; }
-.section--statement { padding: clamp(88px, 12vw, 160px) var(--gutter); }
+.section--statement { padding: clamp(64px, 8.5vw, 112px) var(--gutter); }
 
 .display {
   margin: 0 0 24px;
@@ -467,6 +492,10 @@ img { max-width: 100%; }
   font-size: 17px;
   font-weight: 600;
 }
+/* The hero's link to the next section, with an arrow drawn like the
+   feature icons. It sits on the badge's own margin. */
+.more-link--down { margin-top: 0; gap: 6px; }
+.more-link--down svg { flex: none; }
 
 /* A feature: text beside its picture. Rows alternate which side the picture
    is on, and stack text first below about 700px. */
@@ -505,6 +534,37 @@ img { max-width: 100%; }
 .device--phone { max-width: 300px; }
 .device--hero { max-width: 320px; }
 .device--watch { max-width: 260px; }
+/* The hero phone gives height on a short window, so the hero never fills
+   the first screen by itself: full size from about 1000px of height, and
+   never under 560px, which keeps it a phone. Its width follows, centred
+   in its column. */
+.device--hero img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: max(560px, calc(100svh - 350px));
+  margin: 0 auto;
+}
+/* Stacked under the text, the hero phone is narrower, so the first screen
+   ends on the link with the phone's top edge in view rather than on a
+   list that reads like a footer. Width governs there, not height. */
+@media (max-width: 700px) {
+  .section--hero .row { gap: 32px; }
+  .device--hero { max-width: min(320px, 70vw); }
+  .device--hero img { max-height: none; }
+}
+/* On a short window (a 1366×768 laptop's browser shows about 650px, a
+   13-inch MacBook's about 770) the hero's top, the headline's size and the
+   margins give, so the badge and the link stay on the first screen and the
+   next section's edge follows them. The row aligns to its top there, so
+   the text keeps its place while the phone runs past the fold. */
+@media (max-height: 800px) {
+  .section--hero { padding-top: min(var(--page-top), 40px); }
+  .section--hero .row { align-items: flex-start; }
+  .display { margin-bottom: 16px; font-size: clamp(42px, 6vw, 72px); }
+  .hero-lead { margin-bottom: 24px; }
+  .section--hero .badges { margin-bottom: 20px; }
+}
 
 .pair {
   flex: 1 1 400px;

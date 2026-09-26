@@ -13,19 +13,7 @@ bare: true
       <div class="badges">
         {% include app-store-badge.html %}
       </div>
-      <ul class="platforms" aria-label="Platforms">
-        <li><span class="dot" aria-hidden="true"></span><span><strong>iPhone</strong> · Available now</span></li>
-        {%- if state >= 2 %}
-        <li><span class="dot" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Installs with the iPhone app</span></li>
-        {%- else %}
-        <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Coming soon</span></li>
-        {%- endif %}
-        {%- if state >= 3 %}
-        <li><span class="dot" aria-hidden="true"></span><span><strong>Android</strong> · Available now</span></li>
-        {%- else %}
-        <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Android</strong> · Coming soon</span></li>
-        {%- endif %}
-      </ul>
+      <a class="more-link more-link--down" href="#h-tap">See how it works<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
     </div>
     <div class="row__media row__media--hero">
       {% include phone.html name="today" dark=true hero=true alt="The Today screen: a counter reading 2 drinks today, about 2.7 standard drinks, with minus and plus buttons. Below it, today’s log lists a beer at 10:06 PM and one standard drink at 10:05 PM." %}

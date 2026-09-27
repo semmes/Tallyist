@@ -448,6 +448,43 @@ img { max-width: 100%; }
 .section--compact .body { max-width: 640px; }
 .section--statement { padding: clamp(64px, 8.5vw, 112px) var(--gutter); }
 
+/* The home page's film, under the hero, playing straight on the page. Its
+   frames are drawn on this ground and meet it exactly at every edge (the
+   film's page cut), so it has no box: no radius, no hairline, and the band
+   is the page's own colour in both appearances. The film is 1344px wide at
+   most, which puts its titles, 160 of its 1920 points in, on the page's
+   1120px column; below that it takes the full width. */
+.section.section--film { padding: 0 0 clamp(24px, 3vw, 40px); }
+.film { width: min(1344px, 100%); margin: 0 auto; }
+.film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  /* Longhands, so the poster rules below set only the image. */
+  background-color: var(--surface);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* Posters as backgrounds, one per appearance: the loop's is its own first
+   frame; the player's is the calendar. They show through the transparent
+   poster file each video names (_includes/film.html). */
+.film__loop { background-image: url("../video/film-light-poster.jpg"); }
+.film__player { background-image: url("../video/film-light-still.jpg"); }
+@media (prefers-color-scheme: dark) {
+  .film__loop { background-image: url("../video/film-dark-poster.jpg"); }
+  .film__player { background-image: url("../video/film-dark-still.jpg"); }
+}
+/* One of the two is shown: the loop, or the player where the reader has
+   asked for reduced motion. Two classes, so these outrank the display
+   above. */
+.film .film__player { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .film .film__loop { display: none; }
+  .film .film__player { display: block; }
+}
+
 .display {
   margin: 0 0 24px;
   font-size: clamp(42px, 6.6vw, 80px);
@@ -545,6 +582,48 @@ img { max-width: 100%; }
   max-height: max(560px, calc(100svh - 350px));
   margin: 0 auto;
 }
+/* The hero phone is backlit: a soft disc of light centred 60% of the way
+   down it, pale and translucent with a faint blue glow (ramp 100), lifted on
+   a soft blue shadow (ramp 500), and in dark a deep blue-grey light with a
+   blue glow. It is blurred, so it has no edge, only light falling away. The
+   light belongs to the page behind the phone. The device is shown as
+   supplied, whole, with nothing drawn over it and no shadow of its own,
+   which is what Apple's terms for its device images ask ("adding shadows or
+   reflections" counts as modifying one; ADR-0056 in the app repository).
+   The disc reaches a quarter of the phone's width past each side where there
+   is room, and never further than leaves 24px to the text (the row's gap)
+   and 12px to the window (the page's margin, or the space beside the 1120px
+   row when that is wider). */
+.device--hero {
+  position: relative;
+  isolation: isolate;
+  --reach: min(25%, clamp(48px, 7vw, 112px) - 24px, max(var(--gutter), (100vw - 1120px) / 2) - 12px);
+}
+.device--hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(-1 * var(--reach));
+  right: calc(-1 * var(--reach));
+  top: 60%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.78) 0%, rgba(250, 252, 255, 0.58) 52%, rgba(232, 241, 253, 0.45) 100%);
+  box-shadow:
+    0 0 60px 8px rgba(205, 226, 251, 0.55),
+    0 44px 96px -30px rgba(37, 106, 191, 0.2);
+  filter: blur(20px);
+  pointer-events: none;
+}
+@media (prefers-color-scheme: dark) {
+  .device--hero::before {
+    background: radial-gradient(circle at 50% 30%, rgba(46, 60, 82, 0.85) 0%, rgba(26, 38, 56, 0.78) 48%, rgba(14, 22, 34, 0.72) 100%);
+    box-shadow:
+      0 0 80px 10px rgba(37, 106, 191, 0.26),
+      0 44px 120px -30px rgba(37, 106, 191, 0.5);
+  }
+}
 /* Stacked under the text, the hero phone is narrower, so the first screen
    ends on the link with the phone's top edge in view rather than on a
    list that reads like a footer. Width governs there, not height. */
@@ -552,6 +631,13 @@ img { max-width: 100%; }
   .section--hero .row { gap: 32px; }
   .device--hero { max-width: min(320px, 70vw); }
   .device--hero img { max-height: none; }
+}
+/* The hero's text and phone stack below 820px (360px of text and 320px of
+   phone, the gap and the page's margins no longer fit side by side), and the
+   phone is centred there, so the disc's reach is the window's space beside
+   it rather than the gap to the text. */
+@media (max-width: 819px) {
+  .device--hero { --reach: min(25%, (100vw - min(320px, 70vw)) / 2 - 16px); }
 }
 /* On a short window (a 1366×768 laptop's browser shows about 650px, a
    13-inch MacBook's about 770) the hero's top, the headline's size and the

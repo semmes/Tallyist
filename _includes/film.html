@@ -1,0 +1,67 @@
+{%- comment -%}
+  The home page's film: 30 seconds, rendered by code from the app's own
+  screens, colours and measurements. Which file a reader gets is a media
+  query on a <source>, which a browser checks before it fetches anything, so
+  each reader downloads one file or none.
+
+  - The loop plays muted, only where the reader has not asked for reduced
+    motion. Its first frame is its poster (the loop is cut to start 0.8
+    seconds in, on the counter), so it starts without a jump; the native
+    controls pause it and turn the sound on.
+  - When it plays is the site's one script, at the end of this file: from
+    its first frame once half of it is on screen, paused once it scrolls
+    away. It stores nothing and sends nothing, as the privacy page says, and
+    scripts/check-links.py allows it by the hash of its text, so a change to
+    it is reviewed like any other. Without it (or without JavaScript) the
+    autoplay attribute still plays the film, by the browser's own rule: as
+    soon as any of it is on screen, which under the hero is often at load.
+  - With reduced motion asked for, the loop has no source at all and the
+    player takes its place: the same film, which plays only when pressed.
+  - Light and dark are separate films, like the screenshots; phones and
+    narrow windows get 720p. HEVC first (Safari, and browsers with hardware
+    HEVC), H.264 for everyone else.
+  - The posters are CSS backgrounds, so only the one for the reader's
+    appearance is fetched. Each video still names a poster, film-clear.png,
+    which is transparent: a video with controls and no poster is painted as
+    a grey box until its first frame arrives in Chrome, over any background.
+{%- endcomment -%}
+{%- assign film = site.baseurl | append: "/video/film" -%}
+{%- assign motion = "(prefers-reduced-motion: no-preference)" -%}
+{%- assign still = "(prefers-reduced-motion: reduce)" -%}
+{%- assign dark = "(prefers-color-scheme: dark)" -%}
+{%- assign narrow = "(max-width: 900px)" -%}
+<figure class="film">
+  <video class="film__loop" autoplay muted loop playsinline controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback preload="auto" poster="{{ film }}-clear.png" width="1920" height="1080" aria-label="Tallyist, a 30-second film. It plays muted; the controls pause it and turn the sound on." aria-describedby="film-desc">
+    <source media="{{ motion }} and {{ dark }} and {{ narrow }}" src="{{ film }}-dark-720-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ motion }} and {{ dark }} and {{ narrow }}" src="{{ film }}-dark-720.mp4" type="video/mp4">
+    <source media="{{ motion }} and {{ dark }}" src="{{ film }}-dark-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ motion }} and {{ dark }}" src="{{ film }}-dark.mp4" type="video/mp4">
+    <source media="{{ motion }} and {{ narrow }}" src="{{ film }}-light-720-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ motion }} and {{ narrow }}" src="{{ film }}-light-720.mp4" type="video/mp4">
+    <source media="{{ motion }}" src="{{ film }}-light-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ motion }}" src="{{ film }}-light.mp4" type="video/mp4">
+  </video>
+  <video class="film__player" controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback playsinline preload="none" poster="{{ film }}-clear.png" width="1920" height="1080" aria-label="Tallyist, a 30-second film with sound. It plays when you press play." aria-describedby="film-desc">
+    <source media="{{ still }} and {{ dark }}" src="{{ film }}-dark-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ still }} and {{ dark }}" src="{{ film }}-dark.mp4" type="video/mp4">
+    <source media="{{ still }}" src="{{ film }}-light-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+    <source media="{{ still }}" src="{{ film }}-light.mp4" type="video/mp4">
+  </video>
+  <figcaption class="visually-hidden" id="film-desc">A 30-second film with music and no speech. A tap on the plus button takes Today’s count from 0 to 2. The day’s tile flies into the calendar, which fills in around it. The view pulls back to twelve months, each day with a drink falls into a stack for its month, and the stacks become the Trends chart: 187 standard drinks over the last 12 months. The chart settles into the Trends screen, beside Today, Calendar and History. On screen: “Tap once.” “Count what you drink. One tap per drink, from the app or the widget.” “A calendar you can read at a glance.” “See your own pattern.” “Yours, and only yours. No account required. No servers. No analytics.” “Tallyist. Count what you drink. See your own pattern. Free on iPhone. Available on the App Store.”</figcaption>
+</figure>
+<script>
+  // The film starts from its first frame once half of it is on screen and pauses once less than a
+  // sixth of it is. A film the reader paused stays paused until they play it again.
+  (() => {
+    const film = document.querySelector(".film__loop");
+    if (!film || !("IntersectionObserver" in window)) return;
+    film.pause(); // cancels the autoplay attribute: the film waits on its first frame
+    let ours = 0, readerPaused = false;
+    film.addEventListener("pause", () => { if (ours > 0) ours--; else readerPaused = true; });
+    film.addEventListener("play", () => { readerPaused = false; });
+    new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio >= 0.5 && film.paused && !readerPaused) film.play().catch(() => {});
+      else if (entry.intersectionRatio < 0.15 && !film.paused) { ours++; film.pause(); }
+    }, { threshold: [0.15, 0.5] }).observe(film);
+  })();
+</script>

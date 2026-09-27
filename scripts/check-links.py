@@ -11,7 +11,10 @@ Reads every .html file in the build and fails (exit 1) on:
 - anything a page loads from another origin: a script, a stylesheet, an icon,
   an image, a frame, media. The site says it loads nothing from anyone else,
   and this is what keeps that true;
-- any <script> at all, inline or not. The site has no JavaScript;
+- any <script> but one: the home page film's scroll trigger, inline in
+  _includes/film.html, which is allowed by the hash of its text
+  (ALLOWED_SCRIPTS). A script with a src, any other script, or any change to
+  that one fails until its new hash is added here, after review;
 - an <img> without an alt attribute (alt="" is fine for decoration).
 
 Links to other sites (<a href>) are allowed. With --external each one is
@@ -26,6 +29,7 @@ domain is attached) is read from _config.yml; --base overrides it.
 Dependency-free, so the deploy workflow can run it without installing anything.
 """
 
+import hashlib
 import os
 import re
 import sys
@@ -45,6 +49,19 @@ LOADS = {
     ("video", "src"), ("video", "poster"), ("audio", "src"),
     ("embed", "src"), ("object", "data"), ("track", "src"),
 }
+# The site's one script, by the hash of its text (script_digest): it starts the home page's film
+# when half of it is on screen. The privacy page says what it does: nothing stored, nothing sent.
+ALLOWED_SCRIPTS = {
+    "42d32dcfa1eded4e11f5d234d0f89d9206fa00c0020c71a46a05eb9f87813735": "the film's scroll trigger, in _includes/film.html",
+}
+
+
+def script_digest(text):
+    """SHA-256 of a script's text, its lines stripped, so indentation from an include is ignored."""
+    lines = (line.strip() for line in text.strip().splitlines())
+    return hashlib.sha256("\n".join(line for line in lines if line).encode("utf-8")).hexdigest()
+
+
 # <link> relations that are navigation rather than a fetch.
 LINK_NAVIGATION = {"canonical", "alternate", "prev", "next", "author", "license"}
 
@@ -54,8 +71,18 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.ids = set()
         self.refs = []      # (kind, url, line): kind is "load" or "link"
-        self.scripts = []   # line numbers
+        self.scripts = []   # (line, src, text)
+        self._script = None
         self.no_alt = []    # (src, line)
+
+    def handle_data(self, data):
+        if self._script is not None:
+            self._script[2] += data
+
+    def handle_endtag(self, tag):
+        if tag == "script" and self._script is not None:
+            self.scripts.append(tuple(self._script))
+            self._script = None
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -65,7 +92,7 @@ class Page(HTMLParser):
         if tag == "a" and "name" in a:
             self.ids.add(a["name"])
         if tag == "script":
-            self.scripts.append(line)
+            self._script = [line, a.get("src"), ""]
         if tag == "img" and "alt" not in a:
             self.no_alt.append((a.get("src", "?"), line))
         if tag == "a" and a.get("href"):
@@ -168,8 +195,12 @@ def main(argv):
     for path, p in sorted(pages.items()):
         here = page_url(site, path, base)
         where = os.path.relpath(path, site)
-        for line in p.scripts:
-            failures.append(f"{where}:{line}: <script> (the site has no JavaScript)")
+        for line, src, text in p.scripts:
+            if src:
+                failures.append(f"{where}:{line}: <script src=\"{src}\"> (the site's one script is inline)")
+            elif script_digest(text) not in ALLOWED_SCRIPTS:
+                failures.append(f"{where}:{line}: <script> that is not the reviewed one "
+                                f"(sha256 {script_digest(text)}); see ALLOWED_SCRIPTS")
         for src, line in p.no_alt:
             failures.append(f"{where}:{line}: <img src=\"{src}\"> has no alt attribute")
         for kind, raw, line in p.refs:
@@ -223,7 +254,7 @@ def main(argv):
         return 1
     print(f"{len(pages)} page(s), {checked} reference(s)"
           + (f", {len(outbound)} outbound link(s) fetched" if external else "")
-          + ": all resolve, nothing loads from another origin, no scripts.")
+          + ": all resolve, nothing loads from another origin, no script but the film's.")
     return 0
 
 

@@ -582,6 +582,48 @@ img { max-width: 100%; }
   max-height: max(560px, calc(100svh - 350px));
   margin: 0 auto;
 }
+/* The hero phone is backlit: a soft disc of light centred 60% of the way
+   down it, pale and translucent with a faint blue glow (ramp 100), lifted on
+   a soft blue shadow (ramp 500), and in dark a deep blue-grey light with a
+   blue glow. It is blurred, so it has no edge, only light falling away. The
+   light belongs to the page behind the phone. The device is shown as
+   supplied, whole, with nothing drawn over it and no shadow of its own,
+   which is what Apple's terms for its device images ask ("adding shadows or
+   reflections" counts as modifying one; ADR-0056 in the app repository).
+   The disc reaches a quarter of the phone's width past each side where there
+   is room, and never further than leaves 24px to the text (the row's gap)
+   and 12px to the window (the page's margin, or the space beside the 1120px
+   row when that is wider). */
+.device--hero {
+  position: relative;
+  isolation: isolate;
+  --reach: min(25%, clamp(48px, 7vw, 112px) - 24px, max(var(--gutter), (100vw - 1120px) / 2) - 12px);
+}
+.device--hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(-1 * var(--reach));
+  right: calc(-1 * var(--reach));
+  top: 60%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.78) 0%, rgba(250, 252, 255, 0.58) 52%, rgba(232, 241, 253, 0.45) 100%);
+  box-shadow:
+    0 0 60px 8px rgba(205, 226, 251, 0.55),
+    0 44px 96px -30px rgba(37, 106, 191, 0.2);
+  filter: blur(20px);
+  pointer-events: none;
+}
+@media (prefers-color-scheme: dark) {
+  .device--hero::before {
+    background: radial-gradient(circle at 50% 30%, rgba(46, 60, 82, 0.85) 0%, rgba(26, 38, 56, 0.78) 48%, rgba(14, 22, 34, 0.72) 100%);
+    box-shadow:
+      0 0 80px 10px rgba(37, 106, 191, 0.26),
+      0 44px 120px -30px rgba(37, 106, 191, 0.5);
+  }
+}
 /* Stacked under the text, the hero phone is narrower, so the first screen
    ends on the link with the phone's top edge in view rather than on a
    list that reads like a footer. Width governs there, not height. */
@@ -590,6 +632,12 @@ img { max-width: 100%; }
   .device--hero { max-width: min(320px, 70vw); }
   .device--hero img { max-height: none; }
 }
+/* The hero's text and phone stack below 820px (360px of text and 320px of
+   phone, the gap and the page's margins no longer fit side by side), and the
+   phone is centred there, so the disc's reach is the window's space beside
+   it rather than the gap to the text. */
+@media (max-width: 819px) {
+  .device--hero { --reach: min(25%, (100vw - min(320px, 70vw)) / 2 - 16px); }
 }
 /* On a short window (a 1366×768 laptop's browser shows about 650px, a
    13-inch MacBook's about 770) the hero's top, the headline's size and the

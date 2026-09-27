@@ -448,6 +448,43 @@ img { max-width: 100%; }
 .section--compact .body { max-width: 640px; }
 .section--statement { padding: clamp(64px, 8.5vw, 112px) var(--gutter); }
 
+/* The home page's film, under the hero, playing straight on the page. Its
+   frames are drawn on this ground and meet it exactly at every edge (the
+   film's page cut), so it has no box: no radius, no hairline, and the band
+   is the page's own colour in both appearances. The film is 1344px wide at
+   most, which puts its titles, 160 of its 1920 points in, on the page's
+   1120px column; below that it takes the full width. */
+.section.section--film { padding: 0 0 clamp(24px, 3vw, 40px); }
+.film { width: min(1344px, 100%); margin: 0 auto; }
+.film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  /* Longhands, so the poster rules below set only the image. */
+  background-color: var(--surface);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* Posters as backgrounds, one per appearance: the loop's is its own first
+   frame; the player's is the calendar. They show through the transparent
+   poster file each video names (_includes/film.html). */
+.film__loop { background-image: url("../video/film-light-poster.jpg"); }
+.film__player { background-image: url("../video/film-light-still.jpg"); }
+@media (prefers-color-scheme: dark) {
+  .film__loop { background-image: url("../video/film-dark-poster.jpg"); }
+  .film__player { background-image: url("../video/film-dark-still.jpg"); }
+}
+/* One of the two is shown: the loop, or the player where the reader has
+   asked for reduced motion. Two classes, so these outrank the display
+   above. */
+.film .film__player { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .film .film__loop { display: none; }
+  .film .film__player { display: block; }
+}
+
 .display {
   margin: 0 0 24px;
   font-size: clamp(42px, 6.6vw, 80px);
@@ -552,6 +589,7 @@ img { max-width: 100%; }
   .section--hero .row { gap: 32px; }
   .device--hero { max-width: min(320px, 70vw); }
   .device--hero img { max-height: none; }
+}
 }
 /* On a short window (a 1366×768 laptop's browser shows about 650px, a
    13-inch MacBook's about 770) the hero's top, the headline's size and the

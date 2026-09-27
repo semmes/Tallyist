@@ -44,7 +44,13 @@ date.
 
 Plain HTML and CSS, written by hand, with no framework and no build step to run
 locally. The rules for every page: a `<meta name="apple-itunes-app">` line, no
-`<script>`, nothing loaded from any other origin, and the system font.
+`<script>` but one (below), nothing loaded from any other origin, and the
+system font. The one script is the home page film's scroll trigger, inline at
+the end of `_includes/film.html`: it starts the film from its first frame once
+half of it is on screen, stores nothing and sends nothing, and the privacy
+page's "This website" note says so. The link check allows it by the hash of
+its text, so any other script, or a change to this one, fails until it is
+reviewed and its new hash recorded.
 
 Jekyll stays on, which is why there is no `.nojekyll` file. The two generated
 documents are Markdown, and every page, theirs and the site's own, renders
@@ -77,6 +83,20 @@ answers. Change it on the day a platform goes live, and nowhere else.
   drawn over it and no shadow; one App Store badge per page; and the credit line
   for Apple's trademarks, which is in the footer. Close-ups are crops of a
   screenshot with no device in them.
+- `video/` is the home page's film, under the hero: 30 seconds rendered by
+  code from the app's own screens, colours and measurements, in light and
+  dark, 1080p and 720p, HEVC and H.264, with a poster and a still for each
+  appearance (and `film-clear.png`, a transparent poster;
+  `_includes/film.html` says why). It is the film's page cut: every frame
+  meets the page's own colour exactly at its edges, and the loop wraps with
+  a fade, so the film plays straight on the page with no box around it. The
+  loop is cut to start 0.8 seconds in, so its first frame is its poster.
+  `_includes/film.html` picks one file per reader with media queries on its
+  sources (appearance, width, and reduced motion, which gets a player that
+  waits to be pressed instead of the loop), with no script; the site's one
+  script only decides when the loop plays. The film downloads with the page,
+  a few megabytes, which is the price of a film that is ready when a reader
+  reaches it.
 - `img/icon/` and `favicon.ico` are downscales of the app icon, never redrawn.
 - `img/badges/` is Apple's badge artwork, unmodified, from the App Store
   Marketing Tools page for this app: black, and white for dark pages while it is
@@ -92,7 +112,8 @@ answers. Change it on the day a platform goes live, and nowhere else.
 on any of:
 
 - a link or image that resolves to nothing, or a `#fragment` with no target;
-- anything a page loads from another origin, and any `<script>`;
+- anything a page loads from another origin, and any `<script>` but the
+  film's scroll trigger, which is allowed by the hash of its text;
 - an image without `alt`;
 - a declared colour pair under its contrast floor, in either scheme.
 

@@ -83,7 +83,7 @@ answers. Change it on the day a platform goes live, and nowhere else.
   drawn over it and no shadow; one App Store badge per page; and the credit line
   for Apple's trademarks, which is in the footer. Close-ups are crops of a
   screenshot with no device in them.
-- `video/` is the home page's film, under the hero: 30 seconds rendered by
+- `video/film-*` is the home page's film, under the hero: 30 seconds rendered by
   code from the app's own screens, colours and measurements, in light and
   dark, 1080p and 720p, HEVC and H.264, with a poster and a still for each
   appearance (and `film-clear.png`, a transparent poster;
@@ -97,6 +97,13 @@ answers. Change it on the day a platform goes live, and nowhere else.
   script only decides when the loop plays. The film downloads with the page,
   a few megabytes, which is the price of a film that is ready when a reader
   reaches it.
+- `video/press-film.mp4` is the press page's film, a different one: the
+  30-second product film, as a 1080p copy at 8 Mbps with its sound untouched,
+  and `video/press-film-poster.jpg`, its frame at 12.8 seconds. Nothing but the
+  poster loads until the reader presses play. The 4K master (175.6 MB) is not
+  kept here, because GitHub refuses any file over 100 MB in a repository: it is
+  attached to the release `press-film-2026-09-27`, the press page links to it
+  there, and the page says the file downloads from GitHub.
 - `img/icon/` and `favicon.ico` are downscales of the app icon, never redrawn.
 - `img/badges/` is Apple's badge artwork, unmodified, from the App Store
   Marketing Tools page for this app: black, and white for dark pages while it is

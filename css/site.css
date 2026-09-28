@@ -924,6 +924,25 @@ figure { margin: 0; }
   margin: 0 0 20px;
   border-radius: 36px;
 }
+/* The film: a 1080p copy plays here, and the 4K master downloads from the
+   GitHub release it is attached to, since GitHub keeps no file over 100 MB
+   in a repository. Square corners and a hairline, like the screenshots below,
+   and black until the poster arrives, because the film is a dark studio. */
+.press-film { margin: 0 0 20px; }
+.press-film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  box-shadow: 0 0 0 1px var(--separator);
+}
+.press-note {
+  margin: 0 0 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--label-2);
+}
 .press-shots {
   list-style: none;
   margin: 0 0 24px;

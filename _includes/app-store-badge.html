@@ -1,14 +1,14 @@
 {%- comment -%}
   Apple's App Store badge, as supplied: one per page. The white alternative is
-  for a page with no other store's badge, so it drops away once Android is
-  live (platform_state 3) and the Google Play badge can sit beside it.
+  for a page with no other store's badge. Where the Google Play badge sits
+  beside it, the page passes beside_play=true and the white drops away, so the
+  two black badges match in either appearance.
 {%- endcomment -%}
-{%- assign state = site.platform_state | default: 1 -%}
 <a class="badge" href="https://apps.apple.com/app/id6798458165" rel="noopener">
   <picture>
-{%- if state < 3 %}
+{%- unless include.beside_play %}
     <source media="(prefers-color-scheme: dark)" srcset="{{ site.baseurl }}/img/badges/app-store-white.svg">
-{%- endif %}
+{%- endunless %}
     <img src="{{ site.baseurl }}/img/badges/app-store-black.svg" alt="Download on the App Store" width="150" height="50">
   </picture>
 </a>

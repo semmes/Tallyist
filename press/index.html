@@ -6,10 +6,11 @@ permalink: /press/
 bare: true
 ---
 {%- assign state = site.platform_state | default: 1 -%}
+{%- assign android = site.android_live | default: false -%}
 <section class="section section--page" aria-labelledby="h-pr">
   <div class="container">
     <h1 class="page-title" id="h-pr">Press</h1>
-    <p class="lead press-lead">Tallyist is a free {% if state >= 2 %}app for iPhone and Apple Watch{% else %}iPhone app{% endif %} that counts what you drink and shows your own pattern: a calendar shaded by amount, weekly and monthly totals, and your own average. It has no account, no servers, no analytics, no goals, and no advice.</p>
+    <p class="lead press-lead">Tallyist is a free {% if state >= 2 and android %}app for iPhone, Apple Watch, and Android{% elsif state >= 2 %}app for iPhone and Apple Watch{% elsif android %}app for iPhone and Android{% else %}iPhone app{% endif %} that counts what you drink and shows your own pattern: a calendar shaded by amount, weekly and monthly totals, and your own average. It has no account, no servers, no analytics, no goals, and no advice.</p>
     <div class="press-grid">
       <div>
         <h2>The icon</h2>

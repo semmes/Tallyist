@@ -110,10 +110,13 @@ yet. That change belongs in that repository, not here.
 - `video/press-film.mp4` is the press page's film, a different one: the
   30-second product film, as a 1080p copy at 8 Mbps with its sound untouched,
   and `video/press-film-poster.jpg`, its frame at 12.8 seconds. Nothing but the
-  poster loads until the reader presses play. The 4K master (175.6 MB) is not
+  poster loads until the reader presses play. The 4K master (175.3 MB) is not
   kept here, because GitHub refuses any file over 100 MB in a repository: it is
-  attached to the release `press-film-2026-09-27`, the press page links to it
-  there, and the page says the file downloads from GitHub.
+  attached to the release `press-film-2026-10-03`, the press page links to it
+  there, and the page says the file downloads from GitHub. That release's end
+  card reads "Available now on iPhone and Android"; the earlier
+  `press-film-2026-09-27`, whose end card said Android was coming soon, is no
+  longer linked.
 - `img/icon/` and `favicon.ico` are downscales of the app icon, never redrawn.
 - `img/badges/` is Apple's badge artwork, unmodified, from the App Store
   Marketing Tools page for this app: black, and white for dark pages while it is

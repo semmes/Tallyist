@@ -5,13 +5,17 @@ permalink: /
 bare: true
 ---
 {%- assign state = site.platform_state | default: 1 -%}
+{%- assign android = site.android_live | default: false -%}
 <section class="section section--hero" aria-labelledby="h-hero">
   <div class="row">
     <div class="row__text row__text--hero">
       <h1 class="display" id="h-hero">Count what you drink. See your own pattern.</h1>
       <p class="hero-lead">One tap per drink, from the app or the widget. A calendar shaded by amount, weekly and monthly totals, and your own average. No account, no goals, no advice.</p>
       <div class="badges">
-        {% include app-store-badge.html %}
+        {% include app-store-badge.html beside_play=android %}
+        {%- if android %}
+        {% include google-play-badge.html %}
+        {%- endif %}
       </div>
       <a class="more-link more-link--down" href="#h-tap">See how it works<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
     </div>
@@ -119,7 +123,7 @@ bare: true
 
 <section class="section section--compact" aria-labelledby="h-android">
   <div class="container">
-    {%- if state >= 3 %}
+    {%- if android %}
     <h2 class="heading heading--small" id="h-android">On Android.</h2>
     {%- else %}
     <h2 class="heading heading--small" id="h-android">Android is coming.</h2>
@@ -195,7 +199,7 @@ bare: true
       </div>
       <div>
         <dt>Your own storage</dt>
-        <dd>On iPhone, your log lives on your device and in your own iCloud, where Tallyist cannot see it.{% if state >= 3 %} On Android, your log is stored on the device, and in your own Android backup if you use one.{% endif %}</dd>
+        <dd>On iPhone, your log lives on your device and in your own iCloud, where Tallyist cannot see it.{% if android %} On Android, your log is stored on the device, and in your own Android backup if you use one.{% endif %}</dd>
       </div>
     </dl>
     <a class="more-link" href="{{ site.baseurl }}/privacy/">Read the privacy policy</a>
@@ -205,7 +209,7 @@ bare: true
 <section class="section section--card" aria-labelledby="h-free">
   <div class="centered">
     <h2 class="heading" id="h-free">Free. All of it.</h2>
-    <p class="body">There’s a tip jar in Settings, where you can buy me a drink.</p>
+    <p class="body">{% if android %}On iPhone, there’s{% else %}There’s{% endif %} a tip jar in Settings, where you can buy me a drink.</p>
   </div>
 </section>
 
@@ -213,7 +217,12 @@ bare: true
   <div class="centered closing">
     <img class="icon" src="{{ site.baseurl }}/img/icon/icon-512.png" alt="" width="88" height="88" loading="lazy">
     <h2 class="heading" id="h-get">Tallyist</h2>
-    <a class="more-link" href="https://apps.apple.com/app/id6798458165" rel="noopener">Available on the App Store</a>
+    <div class="link-row">
+      <a href="https://apps.apple.com/app/id6798458165" rel="noopener">Available on the App Store</a>
+      {%- if android %}
+      <a href="https://play.google.com/store/apps/details?id=com.tallyist.android" rel="noopener">Available on Google Play</a>
+      {%- endif %}
+    </div>
     <ul class="platforms" aria-label="Platforms">
       <li><span class="dot" aria-hidden="true"></span><span><strong>iPhone</strong> · Available now</span></li>
       {%- if state >= 2 %}
@@ -221,7 +230,7 @@ bare: true
       {%- else %}
       <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Apple Watch</strong> · Coming soon</span></li>
       {%- endif %}
-      {%- if state >= 3 %}
+      {%- if android %}
       <li><span class="dot" aria-hidden="true"></span><span><strong>Android</strong> · Available now</span></li>
       {%- else %}
       <li><span class="dot dot--coming" aria-hidden="true"></span><span><strong>Android</strong> · Coming soon</span></li>

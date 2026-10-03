@@ -8,6 +8,11 @@ baseurl: ""
 # 1 while only the iPhone app is live, 2 once the watch app is, 3 once Android
 # is. The layout and support.md read it; see the README.
 platform_state: 1
+# Android went live on Google Play before the watch app, which platform_state
+# cannot say: its 3 would also mean the watch app is live. So Android has its
+# own switch, which the site's own pages read. support.md still waits on
+# platform_state 3 for its Android answers; see the README.
+android_live: true
 plugins: []
 exclude:
   - README.md

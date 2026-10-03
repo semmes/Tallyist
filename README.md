@@ -59,11 +59,21 @@ exist once. A site page is hand-written HTML with a few lines of front matter
 naming that layout; `bare: true` keeps the layout from wrapping it in the
 document column.
 
-**Platform state.** `platform_state` in `_config.yml` is the site's one switch:
-`1` while only the iPhone app is live, `2` once the watch app is, `3` once
-Android is. The layout writes it to `<html data-state>` for the stylesheet, and
+**Platform state.** `platform_state` in `_config.yml` is the switch for the
+Apple apps: `1` while only the iPhone app is live, `2` once the watch app is.
+The layout writes it to `<html data-state>` for the stylesheet, and
 `support.md` reads it through Liquid, so each page carries only its own state's
 answers. Change it on the day a platform goes live, and nowhere else.
+
+Its `3` was to mean Android, on the assumption that the watch app would come
+first. Android went live on Google Play first, and a `3` would also have said
+the watch app was out. So Android has its own switch,
+`android_live`, which the site's own pages read: the Google Play badge, the
+Android section and storage line, the closing links and platform list, the
+footer, and the press page's first line. `support.md` still gives its Android
+answers only at `platform_state` 3, and until the mirror in `semmes/DrinkTracker`
+reads `android_live` instead, its "Is there an Android app?" answer says not
+yet. That change belongs in that repository, not here.
 
 - `css/site.css` is the site design's tokens (which mirror the app's
   `docs/design-system.md`) and every rule. Colour pairs are declared in the
@@ -110,6 +120,18 @@ answers. Change it on the day a platform goes live, and nowhere else.
   the only store badge on the page. One badge per layout, at least 40 px tall,
   clear space of a quarter of its height, per Apple's guidelines; the home page's
   closing section says "Available on the App Store" as a link instead.
+- `img/badges/google-play.png` is Google's "Get it on Google Play" badge,
+  unmodified, as Google serves it at
+  `play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png`.
+  One black badge for both appearances, with its clear space built in as a
+  transparent margin; `css/site.css` takes that margin back and sizes the
+  visible badge to 50.4 px, because Google asks that its badge be no smaller
+  than another store's beside it. Where the two sit together, Apple's badge
+  stays black in dark mode too (`beside_play` in
+  `_includes/app-store-badge.html`). The footer carries Google's trademark
+  line. The vector version is on Google's Partner Marketing Hub, behind its
+  usage terms; swapping it in means a new `width`, `height` and margin, since
+  it has no transparent edge.
 - Copy follows the app's tone rules (report, never instruct) and goes through
   the same 1.4.3 review log as the app's own strings, in the app repository.
 
@@ -124,9 +146,9 @@ on any of:
 - an image without `alt`;
 - a declared colour pair under its contrast floor, in either scheme.
 
-Outbound links (the App Store, GitHub, Apple's EULA) are fetched in a separate
-job, on every change and daily, so a store link that stops answering is found
-without holding up a policy change.
+Outbound links (the App Store, Google Play, GitHub, Apple's EULA) are fetched
+in a separate job, on every change and daily, so a store link that stops
+answering is found without holding up a policy change.
 
 ```
 python3 scripts/check-links.py _site

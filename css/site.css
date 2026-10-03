@@ -698,8 +698,9 @@ figure { margin: 0; }
   color: var(--label-2);
 }
 
-/* Store badges. Apple's badge is its own artwork, used as supplied: at least
-   40px tall, with clear space of a quarter of its height, one per page. */
+/* Store badges. Each store's badge is its own artwork, used as supplied, with
+   clear space of a quarter of its height. Apple's: at least 40px tall, one per
+   page. Google's: at least 28px tall, and no smaller than the badge beside it. */
 .badges {
   display: flex;
   flex-wrap: wrap;
@@ -715,6 +716,16 @@ figure { margin: 0; }
   display: block;
   width: 150px;
   height: 50px;
+}
+/* Google's badge is a PNG whose transparent margin is its clear space, 41 of
+   its 250 px on every side. At 75 px tall the visible badge is 50.4 px, no
+   shorter than Apple's, which is what Google asks of its badge beside another
+   store's. The negative margin hands the transparent edge back, so the row's
+   gap spaces the two badges and their visible edges line up. */
+.badge--play img {
+  width: 194px;
+  height: 75px;
+  margin: -12px;
 }
 
 .platforms {
@@ -830,7 +841,7 @@ figure { margin: 0; }
   height: 88px;
   border-radius: 20px;
 }
-.closing .more-link { margin: 0; }
+.closing .link-row { justify-content: center; }
 .closing .platforms { justify-content: center; }
 
 /* Apple Watch */

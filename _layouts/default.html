@@ -3,12 +3,23 @@
   generated in semmes/DrinkTracker and never edited here) and the site's own
   pages render through it, so the head, header and footer exist once.
 
-  platform_state in _config.yml is the site's one switch: 1 while only the
-  iPhone app is live, 2 once the watch app is, 3 once Android is. It is written
-  to <html data-state> for the stylesheet, and support.md reads the same value
-  through Liquid.
+  platform_state in _config.yml is the site's switch for the Apple apps: 1
+  while only the iPhone app is live, 2 once the watch app is. It is written to
+  <html data-state> for the stylesheet, and support.md reads the same value
+  through Liquid. Its 3 was to mean Android, but Android went live before the
+  watch app, so android_live is Android's own switch for the site's pages.
 {%- endcomment -%}
 {%- assign state = site.platform_state | default: 1 -%}
+{%- assign android = site.android_live | default: false -%}
+{%- if state >= 2 and android -%}
+  {%- assign platforms = "iPhone, iPad, Apple Watch, and Android" -%}
+{%- elsif state >= 2 -%}
+  {%- assign platforms = "iPhone, iPad, and Apple Watch" -%}
+{%- elsif android -%}
+  {%- assign platforms = "iPhone, iPad, and Android" -%}
+{%- else -%}
+  {%- assign platforms = "iPhone and iPad" -%}
+{%- endif -%}
 {%- assign description = page.description | default: site.description -%}
 {%- if page.title and page.title != site.title -%}
   {%- assign full_title = page.title | append: " · " | append: site.title -%}
@@ -93,9 +104,9 @@
       <a href="{{ site.baseurl }}/press/"{% if page.url == "/press/" %} aria-current="page"{% endif %}>Press</a>
       <a href="{{ site.baseurl }}/watch/"{% if page.url == "/watch/" %} aria-current="page"{% endif %}>Apple Watch</a>
     </nav>
-    <p>Tallyist is available for {% if state >= 2 %}iPhone, iPad, and Apple Watch{% else %}iPhone and iPad{% endif %}. It is for adults of legal drinking age. It records what you report drinking and offers no medical advice, diagnosis, or guidelines.</p>
+    <p>Tallyist is available for {{ platforms }}. It is for adults of legal drinking age. It records what you report drinking and offers no medical advice, diagnosis, or guidelines.</p>
     <p>© 2026 Tallyist</p>
-    <p class="legal">Apple, the Apple logo, Apple Watch, iCloud, iPad, iPhone, Safari, Siri, and watchOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.{% if state >= 3 %} Google Play and the Google Play logo are trademarks of Google LLC.{% endif %}</p>
+    <p class="legal">Apple, the Apple logo, Apple Watch, iCloud, iPad, iPhone, Safari, Siri, and watchOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.{% if android %} Google Play and the Google Play logo are trademarks of Google LLC.{% endif %}</p>
   </div>
 </footer>
 </body>

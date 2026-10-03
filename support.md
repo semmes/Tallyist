@@ -6,6 +6,8 @@ permalink: /support/
 ---
 
 {% assign state = site.platform_state | default: 1 %}
+{% comment %}Android went live before the watch app, so the website's _config.yml gives it a switch of its own, android_live. platform_state 3 still implies it.{% endcomment %}
+{% assign android = site.android_live | default: false %}{% if state >= 3 %}{% assign android = true %}{% endif %}
 # Support
 
 Tallyist records the drinks you log and shows them back to you as a calendar,
@@ -25,7 +27,7 @@ watch model and watchOS version.
 
 <details>
 <summary>Do I need an account?</summary>
-{% if state >= 3 -%}
+{% if android -%}
 <p>No account is required on either platform. On iPhone there is nothing to sign in to. On Android, Tallyist asks for no sign-in, and has no permission to use the internet.</p>
 {%- else -%}
 <p>No. On iPhone there is nothing to sign in to.</p>
@@ -34,7 +36,7 @@ watch model and watchOS version.
 
 <details>
 <summary>Where is my data?</summary>
-<p>On your devices, in your own private iCloud if iCloud is on for Tallyist, and in Apple Health if you let Tallyist save to it. Tallyist has no servers and cannot see your log.{% if state >= 3 %} On Android, your log is stored on the device, and in your own Android backup if you use one. That backup belongs to your Google account. The developer never receives it and cannot read it.{% endif %}</p>
+<p>On your devices, in your own private iCloud if iCloud is on for Tallyist, and in Apple Health if you let Tallyist save to it. Tallyist has no servers and cannot see your log.{% if android %} On Android, your log is stored on the device, and in your own Android backup if you use one. That backup belongs to your Google account. The developer never receives it and cannot read it.{% endif %}</p>
 </details>
 
 <details>
@@ -44,7 +46,7 @@ watch model and watchOS version.
 
 <details>
 <summary>What does the tip jar unlock?</summary>
-<p>Nothing. Every feature is free. The tip jar, in Settings under Buy me a drink, is there for anyone who wants to say thanks. Apple handles the payment; Tallyist never sees your payment details.</p>
+<p>Nothing. Every feature is free. The tip jar, in Settings under Buy me a drink, is there for anyone who wants to say thanks. Apple handles the payment; Tallyist never sees your payment details.{% if android %} The Android app has no tip jar.{% endif %}</p>
 </details>
 
 <details>
@@ -83,7 +85,7 @@ watch model and watchOS version.
 
 <details>
 <summary>Is there an Android app?</summary>
-{% if state >= 3 -%}
+{% if android -%}
 <p>Yes, on Google Play. Same app, same rules.</p>
 {%- else -%}
 <p>Not yet. It is coming soon, with the same rules.</p>

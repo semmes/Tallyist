@@ -134,9 +134,10 @@ yet. That change belongs in that repository, not here.
   than another store's beside it. Where the two sit together, Apple's badge
   stays black in dark mode too (`beside_play` in
   `_includes/app-store-badge.html`). The footer carries Google's trademark
-  line. The vector version is on Google's Partner Marketing Hub, behind its
-  usage terms; swapping it in means a new `width`, `height` and margin, since
-  it has no transparent edge.
+  lines while `android_live` is on: one for Google Play and its logo, and one
+  for Android, which the site uses as a platform name. The vector version is
+  on Google's Partner Marketing Hub, behind its usage terms; swapping it in
+  means a new `width`, `height` and margin, since it has no transparent edge.
 - Copy follows the app's tone rules (report, never instruct) and goes through
   the same 1.4.3 review log as the app's own strings, in the app repository.
 

@@ -106,7 +106,9 @@ yet. That change belongs in that repository, not here.
   waits to be pressed instead of the loop), with no script; the site's one
   script only decides when the loop plays. The film downloads with the page,
   a few megabytes, which is the price of a film that is ready when a reader
-  reaches it.
+  reaches it. Its end card reads "Free on iPhone and Android." with the
+  trademark lines for iPhone and Android; until 2026-10-03 it read "Free on
+  iPhone. Available on the App Store." with Apple's alone.
 - `video/press-film.mp4` is the press page's film, a different one: the
   30-second product film, as a 1080p copy at 8 Mbps with its sound untouched,
   and `video/press-film-poster.jpg`, its frame at 12.8 seconds. Nothing but the

@@ -742,6 +742,10 @@ figure { margin: 0; }
   display: flex;
   align-items: center;
   gap: 9px;
+  /* A line that wraps (Apple Watch's, under 360px) starts beside its dot
+     instead of centring away from it. A line that fits is as wide as its
+     text, so nothing else moves. */
+  text-align: left;
 }
 .platforms strong { font-weight: 600; }
 .dot {

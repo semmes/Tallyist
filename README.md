@@ -63,17 +63,19 @@ document column.
 Apple apps: `1` while only the iPhone app is live, `2` once the watch app is.
 The layout writes it to `<html data-state>` for the stylesheet, and
 `support.md` reads it through Liquid, so each page carries only its own state's
-answers. Change it on the day a platform goes live, and nowhere else.
+answers. Change it on the day a platform goes live, and nowhere else. It went
+to `2` on 2026-10-20, the day after version 1.5, the first with the watch app,
+went live on the App Store.
 
 Its `3` was to mean Android, on the assumption that the watch app would come
 first. Android went live on Google Play first, and a `3` would also have said
 the watch app was out. So Android has its own switch,
 `android_live`, which the site's own pages read: the Google Play badge, the
 Android section and storage line, the closing links and platform list, the
-footer, and the press page's first line. `support.md` still gives its Android
-answers only at `platform_state` 3, and until the mirror in `semmes/DrinkTracker`
-reads `android_live` instead, its "Is there an Android app?" answer says not
-yet. That change belongs in that repository, not here.
+footer, and the press page's first line. `support.md` reads it too, since
+`semmes/DrinkTracker#164` changed the mirrored page, for its Android answers,
+its tip jar answer and its bug-report line. With both switches on, `2` draws
+every page as `3` would.
 
 - `css/site.css` is the site design's tokens (which mirror the app's
   `docs/design-system.md`) and every rule. Colour pairs are declared in the

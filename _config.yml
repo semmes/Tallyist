@@ -6,12 +6,13 @@ description: Privacy policy and support for Tallyist, the iOS drink tracker.
 url: https://tallyist.co
 baseurl: ""
 # 1 while only the iPhone app is live, 2 once the watch app is, 3 once Android
-# is. The layout and support.md read it; see the README.
-platform_state: 1
+# is. The layout and support.md read it; see the README. Set to 2 on
+# 2026-10-20, the day after version 1.5, the first with the watch app, went
+# live on the App Store.
+platform_state: 2
 # Android went live on Google Play before the watch app, which platform_state
 # cannot say: its 3 would also mean the watch app is live. So Android has its
-# own switch, which the site's own pages read. support.md still waits on
-# platform_state 3 for its Android answers; see the README.
+# own switch, which the site's own pages and support.md read; see the README.
 android_live: true
 plugins: []
 exclude:
